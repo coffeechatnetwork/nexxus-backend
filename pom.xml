@@ -29,6 +29,7 @@
         <module>nexxus-auth</module>
         <module>nexxus-email</module>
         <module>nexxus-file</module>
+        <module>nexxus-cos</module>
     </modules>
     <scm>
         <connection/>
