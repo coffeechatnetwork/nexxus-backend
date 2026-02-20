@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.nexxus</groupId>
-    <artifactId>nexxus</artifactId>
+    <artifactId>nexxus-cos-backend</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
-    <name>nexxus</name>
+    <name>nexxus-cos-backend</name>
     <description>Nexxus project for Spring Boot</description>
     <url/>
     <licenses>
