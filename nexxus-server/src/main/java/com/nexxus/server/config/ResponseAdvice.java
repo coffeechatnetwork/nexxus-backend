@@ -11,6 +11,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -66,7 +67,16 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
         return new NResponse<>(401, e.getMessage(), null);
     }
 
+
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public NResponse<?> authenticationException(AuthenticationException e) {
+        log.error("Authentication Exception", e);
+        return new NResponse<>(401, "Unauthorized: Authentication required", null);
+    }
+
     @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public NResponse<?> exception(Exception e) {
         log.error("Exception", e);
         return new NResponse<>(500, e.getMessage(), null);
