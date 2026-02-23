@@ -106,4 +106,9 @@ public class AuthApiImpl implements AuthApi {
         }
         return AuthResponse.builder().token(signedJWT.serialize()).expiresInSeconds(expiredInSeconds).build();
     }
+
+    @Override
+    public SignedJWT parseAndVerifyJWT(String token) throws ParseException, JOSEException {
+        return jwtService.parseAndVerifyJWT(token);
+    }
 }
