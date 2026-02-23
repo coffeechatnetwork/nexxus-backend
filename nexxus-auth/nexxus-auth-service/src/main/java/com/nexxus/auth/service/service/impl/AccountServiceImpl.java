@@ -17,9 +17,17 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, AccountEntity
     private final AccountMapper accountMapper;
 
     @Override
-    public AccountEntity getByEmail(String email) {
+    public AccountEntity getByOrgIdAndEmail(Long orgId, String email) {
         LambdaQueryWrapper<AccountEntity> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(AccountEntity::getEmail, email);
+        queryWrapper.eq(AccountEntity::getOrgId, orgId);
+        return accountMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public AccountEntity getByDisplayId(String displayId) {
+        LambdaQueryWrapper<AccountEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(AccountEntity::getDisplayId, displayId);
         return accountMapper.selectOne(queryWrapper);
     }
 }

@@ -5,5 +5,7 @@ import com.nexxus.auth.service.entity.AccountEntity;
 
 public interface AccountService extends IService<AccountEntity> {
 
-    public AccountEntity getByEmail(String email);
+    public AccountEntity getByOrgIdAndEmail(Long orgId, String email);
+
+    public AccountEntity getByDisplayId(String displayId);
 }

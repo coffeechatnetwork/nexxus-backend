@@ -37,7 +37,8 @@ public class AuthApiImpl implements AuthApi {
     @Override
     public AuthResponse register(RegisterRequest req) {
         String email = req.getEmail();
-        AccountEntity existingAccount = accountService.getByEmail(email);
+        Long orgId = req.getOrgId();
+        AccountEntity existingAccount = accountService.getByOrgIdAndEmail(orgId, email);
         if (existingAccount != null) {
             throw new NexxusException(ErrorDefEnum.RESOURCE_CONFLICT.desc("account already exist"));
         }
@@ -57,7 +58,7 @@ public class AuthApiImpl implements AuthApi {
                 .password(pwdHash)
                 .salt(salt)
                 .status(AccountStatus.ACTIVE)
-                .orgId(req.getOrgId())
+                .orgId(orgId)
                 .build();
 
         accountService.save(accountEntity);
@@ -79,7 +80,8 @@ public class AuthApiImpl implements AuthApi {
     @Override
     public AuthResponse login(LoginRequest req) {
         String email = req.getEmail();
-        AccountEntity accountEntity = accountService.getByEmail(email);
+        Long orgId = req.getOrgId();
+        AccountEntity accountEntity = accountService.getByOrgIdAndEmail(orgId, email);
         if (accountEntity == null) {
             throw new NexxusException(ErrorDefEnum.NOT_FOUND_EXCEPTION.desc("account not found"));
         }

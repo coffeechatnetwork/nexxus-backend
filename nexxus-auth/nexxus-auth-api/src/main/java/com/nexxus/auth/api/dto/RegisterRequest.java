@@ -3,10 +3,10 @@ package com.nexxus.auth.api.dto;
 import com.nexxus.common.enums.auth.AccountType;
 import com.nexxus.common.validations.ValidPassword;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
@@ -20,8 +20,8 @@ public class RegisterRequest implements Serializable {
     private String email;
     @ValidPassword
     private String password;
-    @NonNull
+    @NotNull
     private Long orgId;
-    @NonNull
+    @NotNull
     private AccountType type;
 }
