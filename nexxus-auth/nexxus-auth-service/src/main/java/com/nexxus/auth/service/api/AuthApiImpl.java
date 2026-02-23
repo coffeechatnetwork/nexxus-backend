@@ -106,23 +106,4 @@ public class AuthApiImpl implements AuthApi {
         }
         return AuthResponse.builder().token(signedJWT.serialize()).expiresInSeconds(expiredInSeconds).build();
     }
-
-    @Override
-    public AccountDto getByDisplayId(String displayId) {
-        AccountEntity accountEntity = accountService.getByDisplayId(displayId);
-        if (accountEntity == null) {
-            throw new NexxusException(ErrorDefEnum.NOT_FOUND_EXCEPTION.desc("account not found"));
-        }
-
-        return AccountDto.builder()
-                .displayId(accountEntity.getDisplayId())
-                .orgId(accountEntity.getOrgId())
-                .type(accountEntity.getType())
-                .countryCode(accountEntity.getCountryCode())
-                .phoneNumber(accountEntity.getPhoneNumber())
-                .email(accountEntity.getEmail())
-                .externalId(accountEntity.getExternalId())
-                .status(accountEntity.getStatus())
-                .build();
-    }
 }
