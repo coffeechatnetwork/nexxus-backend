@@ -3,10 +3,10 @@ package com.nexxus.server.controller.v1;
 import com.nexxus.auth.api.AccountApi;
 import com.nexxus.auth.api.AuthApi;
 import com.nexxus.auth.api.dto.AccountDto;
+import com.nexxus.common.AccountInfo;
+import com.nexxus.common.AccountInfoContext;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/accounts")
@@ -16,8 +16,13 @@ public class AccountController {
 
     @GetMapping("/me")
     public AccountDto getMyAccount() {
-        // TODO: get displayId from jwt
-        String displayId = "3a28e68e-45e5-47e4-9486-34cc4d5cdf46";
+        AccountInfo accountInfo = AccountInfoContext.get();
+        String displayId = accountInfo.getDisplayId();
+        return accountApi.getByDisplayId(displayId);
+    }
+
+    @GetMapping("/{displayId}")
+    public AccountDto getAccountById(@PathVariable String displayId) {
         return accountApi.getByDisplayId(displayId);
     }
 }

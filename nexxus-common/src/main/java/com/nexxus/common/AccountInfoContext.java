@@ -1,10 +1,8 @@
 package com.nexxus.common;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
 public class AccountInfoContext {
     private static final TransmittableThreadLocal<AccountInfo> ACCOUNT_INFO = new TransmittableThreadLocal<>();
