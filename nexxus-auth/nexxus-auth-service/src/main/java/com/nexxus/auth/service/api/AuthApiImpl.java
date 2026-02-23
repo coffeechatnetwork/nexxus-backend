@@ -1,5 +1,6 @@
 package com.nexxus.auth.service.api;
 
+import com.nexxus.auth.api.dto.AccountDto;
 import com.nexxus.auth.api.dto.LoginRequest;
 import com.nexxus.auth.api.dto.RegisterRequest;
 import com.nexxus.auth.service.service.JwtService;
@@ -104,5 +105,24 @@ public class AuthApiImpl implements AuthApi {
             throw new NexxusException(ErrorDefEnum.FAILED_TO_PARSE_JWT, e);
         }
         return AuthResponse.builder().token(signedJWT.serialize()).expiresInSeconds(expiredInSeconds).build();
+    }
+
+    @Override
+    public AccountDto getByDisplayId(String displayId) {
+        AccountEntity accountEntity = accountService.getByDisplayId(displayId);
+        if (accountEntity == null) {
+            throw new NexxusException(ErrorDefEnum.NOT_FOUND_EXCEPTION.desc("account not found"));
+        }
+
+        return AccountDto.builder()
+                .displayId(accountEntity.getDisplayId())
+                .orgId(accountEntity.getOrgId())
+                .type(accountEntity.getType())
+                .countryCode(accountEntity.getCountryCode())
+                .phoneNumber(accountEntity.getPhoneNumber())
+                .email(accountEntity.getEmail())
+                .externalId(accountEntity.getExternalId())
+                .status(accountEntity.getStatus())
+                .build();
     }
 }
