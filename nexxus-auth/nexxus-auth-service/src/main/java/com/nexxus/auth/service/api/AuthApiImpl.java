@@ -86,6 +86,10 @@ public class AuthApiImpl implements AuthApi {
         if (accountEntity == null) {
             throw new NexxusException(ErrorDefEnum.NOT_FOUND_EXCEPTION.desc("account not found"));
         }
+        // check status
+        if (accountEntity.getStatus() != AccountStatus.ACTIVE) {
+            throw new NexxusException(ErrorDefEnum.FORBIDDEN.desc("you account is not active"));
+        }
         // check password
         String saltedPassword = req.getPassword() + accountEntity.getSalt();
         boolean matches = passwordEncoder.matches(saltedPassword, accountEntity.getPassword());
