@@ -27,11 +27,12 @@ public class OrgApiImpl implements OrgApi {
 
     @Override
     public OrganizationDto createOrganization(CreateOrganizationRequest req) {
-        String displayId = UUID.randomUUID().toString();
-        OrganizationEntity organizationEntity = organizationService.getByDisplayId(displayId);
+        String orgCode = req.getCode();
+        OrganizationEntity organizationEntity = organizationService.getByCode(orgCode);
         if (organizationEntity != null) {
             throw new NexxusException(ErrorDefEnum.RESOURCE_CONFLICT.desc("organization already exist"));
         }
+        String displayId = UUID.randomUUID().toString();
         OrganizationEntity newOrg = OrganizationEntity.builder()
                 .displayId(displayId)
                 .name(req.getName())

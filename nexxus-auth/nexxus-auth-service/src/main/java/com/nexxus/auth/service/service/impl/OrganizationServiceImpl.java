@@ -31,4 +31,11 @@ public class OrganizationServiceImpl extends ServiceImpl<OrganizationMapper, Org
         queryWrapper.orderByDesc(OrganizationEntity::getId);
         return organizationMapper.selectPage(pageParam, queryWrapper);
     }
+
+    @Override
+    public OrganizationEntity getByCode(String code) {
+        LambdaQueryWrapper<OrganizationEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(OrganizationEntity::getCode, code);
+        return organizationMapper.selectOne(queryWrapper);
+    }
 }
