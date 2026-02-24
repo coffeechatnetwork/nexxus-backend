@@ -15,10 +15,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class CreateProjectRequest implements Serializable {
     @NotBlank
-    @Size(max=64)
+    @Size(max = 64)
     private String name;
-    @Size(max=32)
+    @Size(max = 32)
     private String slug;
-    @Size(max=512)
+    @Size(max = 512)
     private String logoUrl;
 }

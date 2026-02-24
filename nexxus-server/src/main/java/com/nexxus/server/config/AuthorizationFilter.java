@@ -31,7 +31,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     private final PublicUriProperties publicUriProperties;
     private final ObjectMapper objectMapper;
 
-    private final static String H_AUTHORIZATION = "Authorization";
+    private static final String H_AUTHORIZATION = "Authorization";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -56,7 +56,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             String displayId = claimsSet.getSubject();
             String orgId = claimsSet.getStringClaim("orgId");
             String email = claimsSet.getStringClaim("email");
-            
+
             AccountInfo accountInfo = AccountInfo.builder().displayId(displayId).email(email).orgId(Long.valueOf(orgId)).build();
             AccountInfoContext.set(accountInfo);
             filterChain.doFilter(request, response);

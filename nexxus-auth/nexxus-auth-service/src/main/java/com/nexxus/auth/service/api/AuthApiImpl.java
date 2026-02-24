@@ -1,16 +1,16 @@
 package com.nexxus.auth.service.api;
 
-import com.nexxus.auth.api.dto.LoginRequest;
-import com.nexxus.auth.api.dto.RegisterRequest;
-import com.nexxus.auth.service.entity.OrganizationEntity;
-import com.nexxus.auth.service.service.JwtService;
-import com.nexxus.auth.service.service.OrganizationService;
-import com.nexxus.common.NexxusException;
-import com.nexxus.common.ErrorDefEnum;
 import com.nexxus.auth.api.AuthApi;
 import com.nexxus.auth.api.dto.AuthResponse;
+import com.nexxus.auth.api.dto.LoginRequest;
+import com.nexxus.auth.api.dto.RegisterRequest;
 import com.nexxus.auth.service.entity.AccountEntity;
+import com.nexxus.auth.service.entity.OrganizationEntity;
 import com.nexxus.auth.service.service.AccountService;
+import com.nexxus.auth.service.service.JwtService;
+import com.nexxus.auth.service.service.OrganizationService;
+import com.nexxus.common.ErrorDefEnum;
+import com.nexxus.common.NexxusException;
 import com.nexxus.common.enums.auth.AccountStatus;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jwt.SignedJWT;

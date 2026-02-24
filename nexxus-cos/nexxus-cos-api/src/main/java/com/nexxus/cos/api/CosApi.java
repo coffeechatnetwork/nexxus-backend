@@ -7,5 +7,6 @@ import com.nexxus.cos.api.dto.ProjectListItem;
 
 public interface CosApi {
     ProjectDto createProject(CreateProjectRequest req);
+
     PageResult<ProjectListItem> listProject(Long page, Long pageSize);
 }

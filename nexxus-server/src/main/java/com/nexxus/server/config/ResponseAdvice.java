@@ -1,8 +1,8 @@
 package com.nexxus.server.config;
 
-import com.nexxus.common.NexxusException;
 import com.nexxus.common.IgnoreResponseAdvice;
 import com.nexxus.common.NResponse;
+import com.nexxus.common.NexxusException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
@@ -70,7 +70,6 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
         log.error("Bad Credentials Exception", e);
         return new NResponse<>(401, e.getMessage(), null);
     }
-
 
     @ExceptionHandler(AuthenticationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)

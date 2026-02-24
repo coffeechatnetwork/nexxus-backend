@@ -1,6 +1,5 @@
 package com.nexxus.auth.api.dto;
 
-import com.nexxus.common.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
