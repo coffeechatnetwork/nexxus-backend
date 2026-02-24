@@ -199,6 +199,7 @@
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                     <outputFile>${project.build.directory}/checkstyle/checkstyle-report.xml</outputFile>
+                    <outputFileFormat>xml</outputFileFormat>
                     <excludes>**/generated-sources/**</excludes>
                 </configuration>
                 <dependencies>
@@ -214,6 +215,7 @@
                         <phase>validate</phase>
                         <goals>
                             <goal>check</goal>
+                            <goal>checkstyle</goal>
                         </goals>
                     </execution>
                 </executions>
