@@ -1,5 +1,6 @@
 package com.nexxus.cos.service.api;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nexxus.auth.api.OrgApi;
 import com.nexxus.auth.api.dto.OrganizationDto;
 import com.nexxus.common.AccountInfo;
@@ -18,7 +19,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -66,6 +69,24 @@ public class CosApiImpl implements CosApi {
 
     @Override
     public PageResult<ProjectListItem> listProject(Long page, Long pageSize) {
-        return null;
+        Page<ProjectEntity> entityPage = projectService.listProjects(page, pageSize);
+
+        List<ProjectListItem> dtoList = entityPage.getRecords().stream()
+                .map(entity -> ProjectListItem.builder()
+                        .displayId(entity.getDisplayId())
+                        .orgId(entity.getOrgId())
+                        .name(entity.getName())
+                        .slug(entity.getSlug())
+                        .logoUrl(entity.getLogoUrl())
+                        .status(entity.getStatus())
+                        .build())
+                .collect(Collectors.toList());
+
+        return PageResult.<ProjectListItem>builder()
+                .records(dtoList)
+                .total(entityPage.getTotal())
+                .pageSize(entityPage.getSize())
+                .page(entityPage.getCurrent())
+                .build();
     }
 }
