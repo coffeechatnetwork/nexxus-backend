@@ -23,6 +23,11 @@
             <artifactId>nexxus-cos-api</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>com.nexxus</groupId>
+            <artifactId>nexxus-auth-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 
     <build>

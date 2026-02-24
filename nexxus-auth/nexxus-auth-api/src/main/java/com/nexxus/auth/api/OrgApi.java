@@ -10,4 +10,6 @@ public interface OrgApi {
     PageResult<OrganizationDto> listOrganization(Long page, Long pageSize);
 
     OrganizationDto getOrganizationByDisplayId(String displayId);
+
+    OrganizationDto getOrganizationById(Long orgId);
 }
