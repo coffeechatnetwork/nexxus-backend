@@ -25,9 +25,12 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, ProjectEntity
     }
 
     @Override
-    public Page<ProjectEntity> listProjects(Long page, Long pageSize) {
+    public Page<ProjectEntity> listProjects(Long orgId, Long page, Long pageSize) {
         Page<ProjectEntity> pageParam = new Page<>(page, pageSize);
         LambdaQueryWrapper<ProjectEntity> queryWrapper = new LambdaQueryWrapper<>();
+        if (orgId != null && orgId != 0) {
+            queryWrapper.eq(ProjectEntity::getOrgId, orgId);
+        }
         queryWrapper.orderByDesc(ProjectEntity::getId);
         return projectMapper.selectPage(pageParam, queryWrapper);
     }

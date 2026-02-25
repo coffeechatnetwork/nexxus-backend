@@ -7,5 +7,5 @@ import com.nexxus.cos.service.entity.ProjectEntity;
 public interface ProjectService extends IService<ProjectEntity> {
     ProjectEntity getByName(String name);
 
-    Page<ProjectEntity> listProjects(Long page, Long pageSize);
+    Page<ProjectEntity> listProjects(Long orgId, Long page, Long pageSize);
 }

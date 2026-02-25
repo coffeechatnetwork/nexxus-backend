@@ -69,7 +69,9 @@ public class CosApiImpl implements CosApi {
 
     @Override
     public PageResult<ProjectListItem> listProject(Long page, Long pageSize) {
-        Page<ProjectEntity> entityPage = projectService.listProjects(page, pageSize);
+        AccountInfo accountInfo = AccountInfoContext.get();
+        Long orgId = accountInfo.getOrgId();
+        Page<ProjectEntity> entityPage = projectService.listProjects(orgId, page, pageSize);
 
         List<ProjectListItem> dtoList = entityPage.getRecords().stream()
                 .map(entity -> ProjectListItem.builder()
