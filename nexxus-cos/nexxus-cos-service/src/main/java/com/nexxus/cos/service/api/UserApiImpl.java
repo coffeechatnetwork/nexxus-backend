@@ -8,6 +8,7 @@ import com.nexxus.common.ErrorDefEnum;
 import com.nexxus.common.NexxusException;
 import com.nexxus.common.PageResult;
 import com.nexxus.common.enums.auth.AppCode;
+import com.nexxus.common.enums.cos.user.UserStatus;
 import com.nexxus.cos.api.UserApi;
 import com.nexxus.cos.api.dto.CosAuthLoginRequest;
 import com.nexxus.cos.api.dto.CosAuthRegisterRequest;
@@ -19,6 +20,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.net.URL;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -39,10 +42,24 @@ public class UserApiImpl implements UserApi {
                 .orgId(req.getOrgId())
                 .appCode(AppCode.COS).type(req.getType()).build();
         AuthResponse authResponse = authApi.register(authRegisterReq);
+        UUID accountID = authResponse.getAccountId();
+        String avatarUrl = Optional.ofNullable(req.getAvatarUrl())
+                .map(URL::toString)
+                .orElse(null);
+        UserEntity newUserEntity = UserEntity.builder()
+                .displayId(accountID.toString())
+                .orgId(req.getOrgId())
+                .email(req.getEmail())
+                .username(req.getUsername())
+                .avatarUrl(avatarUrl)
+                .status(UserStatus.ACTIVE)
+                .build();
+        userService.save(newUserEntity);
         return CosAuthResponse.builder()
                 .token(authResponse.getToken())
                 .tokenType(authResponse.getTokenType())
                 .expiresInSeconds(authResponse.getExpiresInSeconds())
+                .accountId(authResponse.getAccountId())
                 .build();
     }
 
@@ -64,6 +81,7 @@ public class UserApiImpl implements UserApi {
                 .token(authResponse.getToken())
                 .tokenType(authResponse.getTokenType())
                 .expiresInSeconds(authResponse.getExpiresInSeconds())
+                .accountId(authResponse.getAccountId())
                 .build();
     }
 

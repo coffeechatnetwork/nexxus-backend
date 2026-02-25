@@ -52,12 +52,14 @@ public class AppController {
                         .username(req.getUsername())
                         .orgId(req.getOrgId())
                         .type(req.getType())
+                        .avatarUrl(req.getAvatarUrl())
                         .build();
                 CosAuthResponse cosAuthResp = userApi.register(cosRegisterReq);
                 resp = AuthResp.builder()
                         .token(cosAuthResp.getToken())
                         .tokenType(cosAuthResp.getTokenType())
                         .expiresInSeconds(cosAuthResp.getExpiresInSeconds())
+                        .accountId(cosAuthResp.getAccountId())
                         .build();
                 break;
             default:
@@ -79,6 +81,7 @@ public class AppController {
                         .token(cosAuthResp.getToken())
                         .tokenType(cosAuthResp.getTokenType())
                         .expiresInSeconds(cosAuthResp.getExpiresInSeconds())
+                        .accountId(cosAuthResp.getAccountId())
                         .build();
                 break;
             default:

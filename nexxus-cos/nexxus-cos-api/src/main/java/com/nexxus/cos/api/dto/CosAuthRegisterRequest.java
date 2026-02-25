@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
+import java.net.URL;
 
 @Data
 @SuperBuilder
@@ -25,4 +26,5 @@ public class CosAuthRegisterRequest implements Serializable {
     private Long orgId;
     @NotNull
     private AccountType type;
+    private URL avatarUrl;
 }

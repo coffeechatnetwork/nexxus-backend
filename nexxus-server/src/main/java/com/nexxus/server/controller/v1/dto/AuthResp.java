@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Data
 @SuperBuilder
@@ -19,4 +20,6 @@ public class AuthResp implements Serializable {
     private String tokenType = "Bearer";
 
     private Long expiresInSeconds;
+
+    private UUID accountId;
 }

@@ -90,7 +90,11 @@ public class AuthApiImpl implements AuthApi {
             throw new NexxusException(ErrorDefEnum.FAILED_TO_PARSE_JWT, e);
         }
 
-        return AuthResponse.builder().token(signedJWT.serialize()).expiresInSeconds(expiredInSeconds).build();
+        return AuthResponse.builder()
+                .token(signedJWT.serialize())
+                .expiresInSeconds(expiredInSeconds)
+                .accountId(UUID.fromString(accountEntity.getDisplayId()))
+                .build();
     }
 
     @Override
@@ -124,7 +128,11 @@ public class AuthApiImpl implements AuthApi {
         } catch (ParseException e) {
             throw new NexxusException(ErrorDefEnum.FAILED_TO_PARSE_JWT, e);
         }
-        return AuthResponse.builder().token(signedJWT.serialize()).expiresInSeconds(expiredInSeconds).build();
+        return AuthResponse.builder()
+                .token(signedJWT.serialize())
+                .expiresInSeconds(expiredInSeconds)
+                .accountId(UUID.fromString(accountEntity.getDisplayId()))
+                .build();
     }
 
     @Override
