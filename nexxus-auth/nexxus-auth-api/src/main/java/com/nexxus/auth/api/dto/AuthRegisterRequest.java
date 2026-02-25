@@ -1,5 +1,6 @@
 package com.nexxus.auth.api.dto;
 
+import com.nexxus.common.enums.auth.AccountType;
 import com.nexxus.common.enums.auth.AppCode;
 import com.nexxus.common.validations.ValidPassword;
 import jakarta.validation.constraints.Email;
@@ -11,16 +12,19 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 
-@SuperBuilder
 @Data
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest implements Serializable {
-    private Long orgId;
-    @NotNull
-    private AppCode appCode;
+public class AuthRegisterRequest implements Serializable {
     @Email
     private String email;
     @ValidPassword
     private String password;
+    private String displayId;
+    private Long orgId;
+    @NotNull
+    private AppCode appCode;
+    @NotNull
+    private AccountType type;
 }

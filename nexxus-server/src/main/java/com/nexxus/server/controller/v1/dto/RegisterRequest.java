@@ -1,4 +1,4 @@
-package com.nexxus.auth.api.dto;
+package com.nexxus.server.controller.v1.dto;
 
 import com.nexxus.common.enums.auth.AccountType;
 import com.nexxus.common.enums.auth.AppCode;
@@ -21,7 +21,7 @@ public class RegisterRequest implements Serializable {
     private String email;
     @ValidPassword
     private String password;
-    private String displayId;
+    private String username;
     private Long orgId;
     @NotNull
     private AppCode appCode;

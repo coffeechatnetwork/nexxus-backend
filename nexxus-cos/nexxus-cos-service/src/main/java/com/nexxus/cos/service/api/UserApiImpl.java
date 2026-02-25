@@ -1,5 +1,6 @@
 package com.nexxus.cos.service.api;
 
+import com.nexxus.auth.api.AuthApi;
 import com.nexxus.common.PageResult;
 import com.nexxus.cos.api.UserApi;
 import com.nexxus.cos.api.dto.CosAuthLoginRequest;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class UserApiImpl implements UserApi {
+
+    private final AuthApi authApi;
+
     @Override
     public CosAuthResponse register(CosAuthRegisterRequest req) {
         return null;

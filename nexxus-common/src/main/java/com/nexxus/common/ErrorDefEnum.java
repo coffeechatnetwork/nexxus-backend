@@ -15,6 +15,7 @@ public enum ErrorDefEnum implements Serializable {
     RESOURCE_CONFLICT(409, "Resource Conflict"),
 
     COMMON_EXCEPTION(500, "Internal Server Error"),
+    NOT_IMPLEMENTED(501, "Not Implemented"),
 
     FAILED_TO_GENERATE_JWT(600, "Failed to generate JWT"),
     FAILED_TO_PARSE_JWT(601, "Failed to parse JWT"),

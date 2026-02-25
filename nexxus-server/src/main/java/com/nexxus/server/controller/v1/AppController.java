@@ -3,7 +3,16 @@ package com.nexxus.server.controller.v1;
 import com.nexxus.auth.api.AppApi;
 import com.nexxus.auth.api.dto.AppDto;
 import com.nexxus.auth.api.dto.CreateAppRequest;
+import com.nexxus.common.ErrorDefEnum;
+import com.nexxus.common.NexxusException;
 import com.nexxus.common.enums.auth.AppCode;
+import com.nexxus.cos.api.UserApi;
+import com.nexxus.cos.api.dto.CosAuthLoginRequest;
+import com.nexxus.cos.api.dto.CosAuthRegisterRequest;
+import com.nexxus.cos.api.dto.CosAuthResponse;
+import com.nexxus.server.controller.v1.dto.AuthResp;
+import com.nexxus.server.controller.v1.dto.LoginRequest;
+import com.nexxus.server.controller.v1.dto.RegisterRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AppController {
 
     private final AppApi appApi;
+    private final UserApi userApi;
 
     @PostMapping("")
     public AppDto createApp(@RequestBody @Valid CreateAppRequest req) {
@@ -28,5 +38,53 @@ public class AppController {
     @GetMapping("/{appCode}")
     public AppDto getAppByCode(@PathVariable AppCode appCode) {
         return appApi.getByCode(appCode);
+    }
+
+    @PostMapping("/{appCode}/register")
+    public AuthResp register(@PathVariable AppCode appCode,
+                             @RequestBody @Valid RegisterRequest req) {
+        AuthResp resp;
+        switch (appCode) {
+            case COS:
+                CosAuthRegisterRequest cosRegisterReq = CosAuthRegisterRequest.builder()
+                        .email(req.getEmail())
+                        .password(req.getPassword())
+                        .username(req.getUsername())
+                        .orgId(req.getOrgId())
+                        .appCode(req.getAppCode())
+                        .type(req.getType())
+                        .build();
+                CosAuthResponse cosAuthResp = userApi.register(cosRegisterReq);
+                resp = AuthResp.builder()
+                        .token(cosAuthResp.getToken())
+                        .tokenType(cosAuthResp.getTokenType())
+                        .expiresInSeconds(cosAuthResp.getExpiresInSeconds())
+                        .build();
+                break;
+            default:
+                throw new NexxusException(ErrorDefEnum.NOT_IMPLEMENTED.desc("this app is not supported"));
+        }
+        return resp;
+    }
+
+    @PostMapping("/{appCode}/login")
+    public AuthResp login(@PathVariable AppCode appCode,
+                          @RequestBody @Valid LoginRequest req) {
+        AuthResp resp;
+        switch (appCode) {
+            case COS:
+                CosAuthLoginRequest cosLoginReq = CosAuthLoginRequest.builder()
+                        .email(req.getEmail()).password(req.getPassword()).build();
+                CosAuthResponse cosAuthResp = userApi.login(cosLoginReq);
+                resp = AuthResp.builder()
+                        .token(cosAuthResp.getToken())
+                        .tokenType(cosAuthResp.getTokenType())
+                        .expiresInSeconds(cosAuthResp.getExpiresInSeconds())
+                        .build();
+                break;
+            default:
+                throw new NexxusException(ErrorDefEnum.NOT_IMPLEMENTED.desc("this app is not supported"));
+        }
+        return resp;
     }
 }

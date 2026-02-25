@@ -1,9 +1,9 @@
 package com.nexxus.server.controller.v1;
 
 import com.nexxus.auth.api.AuthApi;
+import com.nexxus.auth.api.dto.AuthLoginRequest;
+import com.nexxus.auth.api.dto.AuthRegisterRequest;
 import com.nexxus.auth.api.dto.AuthResponse;
-import com.nexxus.auth.api.dto.LoginRequest;
-import com.nexxus.auth.api.dto.RegisterRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,12 +21,12 @@ public class AuthController {
     private final AuthApi authApi;
 
     @PostMapping("/register")
-    public AuthResponse register(@RequestBody @Valid RegisterRequest req) {
+    public AuthResponse register(@RequestBody @Valid AuthRegisterRequest req) {
         return authApi.register(req);
     }
 
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody @Valid LoginRequest req) {
+    public AuthResponse login(@RequestBody @Valid AuthLoginRequest req) {
         log.info("received login request, orgId: {}, email: {}", req.getOrgId(), req.getEmail());
         return authApi.login(req);
     }

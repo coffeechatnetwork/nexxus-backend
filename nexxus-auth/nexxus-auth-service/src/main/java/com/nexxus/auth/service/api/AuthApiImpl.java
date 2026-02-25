@@ -1,9 +1,9 @@
 package com.nexxus.auth.service.api;
 
 import com.nexxus.auth.api.AuthApi;
+import com.nexxus.auth.api.dto.AuthLoginRequest;
+import com.nexxus.auth.api.dto.AuthRegisterRequest;
 import com.nexxus.auth.api.dto.AuthResponse;
-import com.nexxus.auth.api.dto.LoginRequest;
-import com.nexxus.auth.api.dto.RegisterRequest;
 import com.nexxus.auth.service.entity.AccountEntity;
 import com.nexxus.auth.service.entity.AppEntity;
 import com.nexxus.auth.service.service.AccountService;
@@ -41,7 +41,7 @@ public class AuthApiImpl implements AuthApi {
     private final AppService appService;
 
     @Override
-    public AuthResponse register(RegisterRequest req) {
+    public AuthResponse register(AuthRegisterRequest req) {
         String email = req.getEmail();
         Long orgId = req.getOrgId();
         AppCode appCode = req.getAppCode();
@@ -93,7 +93,7 @@ public class AuthApiImpl implements AuthApi {
     }
 
     @Override
-    public AuthResponse login(LoginRequest req) {
+    public AuthResponse login(AuthLoginRequest req) {
         String email = req.getEmail();
         Long orgId = req.getOrgId();
         AppCode appCode = req.getAppCode();
