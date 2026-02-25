@@ -26,6 +26,9 @@ jobs:
       - name: Maven Package
         run: mvn clean package
 
+      - name: Copy Jar
+        run: cp nexxus-starter/target/nexxus-starter-0.0.1-SNAPSHOT.jar app.jar
+
       - name: Deploy to Server
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -33,10 +36,10 @@ jobs:
           username: root
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            ps aux | grep '[j]ava -jar nexxus-starter-0.0.1-SNAPSHOT.jar' | awk '{print $2}' | xargs -r kill -15 || true
+            ps aux | grep '[j]ava -jar app.jar' | awk '{print $2}' | xargs -r kill -15 || true
             sleep 2
-            ps aux | grep '[j]ava -jar nexxus-starter-0.0.1-SNAPSHOT.jar' | awk '{print $2}' | xargs -r kill -9 || true
-            rm -f /opt/app/nexxus-starter-0.0.1-SNAPSHOT.jar
+            ps aux | grep '[j]ava -jar app.jar' | awk '{print $2}' | xargs -r kill -9 || true
+            rm -f /opt/app/app.jar
             echo "uploading..."
 
       - name: Upload Jar
@@ -45,8 +48,8 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          source: "nexxus-starter/target/nexxus-starter-0.0.1-SNAPSHOT.jar"
-          target: "/opt/app/nexxus-starter-0.0.1-SNAPSHOT.jar"
+          source: "app.jar"
+          target: "/opt/app/app.jar"
 
       - name: Start App
         uses: appleboy/ssh-action@v1.0.3
@@ -56,5 +59,5 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /opt/app
-            nohup java -jar nexxus-starter-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
+            nohup java -jar app.jar > app.log 2>&1 &
 
