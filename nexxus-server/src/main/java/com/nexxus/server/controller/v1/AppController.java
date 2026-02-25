@@ -51,7 +51,6 @@ public class AppController {
                         .password(req.getPassword())
                         .username(req.getUsername())
                         .orgId(req.getOrgId())
-                        .appCode(req.getAppCode())
                         .type(req.getType())
                         .build();
                 CosAuthResponse cosAuthResp = userApi.register(cosRegisterReq);
