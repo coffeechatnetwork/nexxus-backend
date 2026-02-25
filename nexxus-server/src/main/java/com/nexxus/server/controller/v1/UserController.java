@@ -7,6 +7,7 @@ import com.nexxus.cos.api.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,11 @@ public class UserController {
     public UserDto me() {
         AccountInfo accountInfo = AccountInfoContext.get();
         String accountId = accountInfo.getAccountId();
+        return userApi.getUserByAccountId(accountId);
+    }
+
+    @GetMapping("/{accountId}")
+    public UserDto getByAccountId(@PathVariable String accountId) {
         return userApi.getUserByAccountId(accountId);
     }
 }
