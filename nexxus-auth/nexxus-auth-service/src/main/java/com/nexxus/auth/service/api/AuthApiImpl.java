@@ -74,6 +74,7 @@ public class AuthApiImpl implements AuthApi {
                 .salt(salt)
                 .status(AccountStatus.ACTIVE)
                 .appCode(appCode)
+                .orgId(orgId)
                 .build();
 
         accountService.save(accountEntity);

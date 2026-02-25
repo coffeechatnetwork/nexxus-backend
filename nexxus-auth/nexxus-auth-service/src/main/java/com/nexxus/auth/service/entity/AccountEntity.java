@@ -20,6 +20,7 @@ import lombok.experimental.SuperBuilder;
 public class AccountEntity extends BaseEntity {
     private String displayId;
     private AppCode appCode;
+    private Long orgId;
     private AccountType type;
     private String countryCode;
     private String phoneNumber;
