@@ -17,5 +17,6 @@ public class Attachment implements Serializable {
     @Size(max = 64)
     private String name;
     @URL
+    @Size(min = 1, max = 2048)
     private String url;
 }

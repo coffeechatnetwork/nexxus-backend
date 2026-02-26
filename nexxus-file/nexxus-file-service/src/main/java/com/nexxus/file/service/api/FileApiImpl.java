@@ -9,10 +9,15 @@ import com.nexxxus.file.api.dto.FileUploadResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
 import java.net.URL;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -20,6 +25,7 @@ import java.util.List;
 public class FileApiImpl implements FileApi {
     private final S3Service s3Service;
     private final S3Config s3Config;
+    private final ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     @Override
     public URL sign(URL orginalUrl) {
@@ -28,12 +34,34 @@ public class FileApiImpl implements FileApi {
 
     @Override
     public List<URL> batchSign(List<URL> orginalUrlList) {
-        return List.of();
+        return orginalUrlList.stream()
+                .map(url -> CompletableFuture.supplyAsync(() -> sign(url), executorService))
+                .toList()
+                .stream()
+                .map(CompletableFuture::join)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Attachment> signAttachments(List<Attachment> attachments) {
-        return List.of();
+        if (CollectionUtils.isEmpty(attachments)) {
+            return List.of();
+        }
+
+        return attachments.stream()
+                .map(attachment -> {
+                    try {
+                        URL originalUrl = new URL(attachment.getUrl());
+                        URL signedUrl = sign(originalUrl);
+                        return Attachment.builder()
+                                .name(attachment.getName())
+                                .url(signedUrl.toString())
+                                .build();
+                    } catch (Exception e) {
+                        log.error("Failed to sign attachment URL: {}", attachment.getUrl(), e);
+                        return attachment;
+                    }
+                }).toList();
     }
 
     @Override

@@ -52,7 +52,7 @@ create table if not exists cos_user
     org_id     bigint                              not null,
     email      varchar(128)                        not null,
     username   varchar(64)                         null,
-    avatar_url text                        null,
+    avatar_url text                                null,
     status     varchar(32)                         not null,
     created_by varchar(64)                         not null,
     updated_by varchar(64)                         not null,
