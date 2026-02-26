@@ -23,9 +23,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.net.URL;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -48,9 +46,7 @@ public class UserApiImpl implements UserApi {
                 .appCode(AppCode.COS).type(req.getType()).build();
         AuthResponse authResponse = authApi.register(authRegisterReq);
         UUID accountID = authResponse.getAccountId();
-        String avatarUrl = Optional.ofNullable(req.getAvatarUrl())
-                .map(URL::toString)
-                .orElse(null);
+        String avatarUrl = req.getAvatarUrl();
         UserEntity newUserEntity = UserEntity.builder()
                 .accountId(accountID.toString())
                 .orgId(req.getOrgId())
@@ -97,22 +93,11 @@ public class UserApiImpl implements UserApi {
             throw new NexxusException(ErrorDefEnum.NOT_FOUND_EXCEPTION.desc("user of this accountId not found"));
         }
 
-        URL avatarUrl = Optional.ofNullable(userEntity.getAvatarUrl())
-                .map(urlStr -> {
-                    try {
-                        return new URL(urlStr);
-                    } catch (Exception e) {
-                        log.warn("Invalid avatar URL for user: {}", accountId, e);
-                        return null;
-                    }
-                })
-                .orElse(null);
-
         return UserDto.builder()
                 .accountId(userEntity.getAccountId())
                 .username(userEntity.getUsername())
                 .email(userEntity.getEmail())
-                .avatarUrl(avatarUrl)
+                .avatarUrl(userEntity.getAvatarUrl())
                 .status(userEntity.getStatus())
                 .build();
     }
@@ -124,25 +109,13 @@ public class UserApiImpl implements UserApi {
         Page<UserEntity> entityPage = userService.listUsers(orgId, page, pageSize);
 
         List<UserDto> userDtos = entityPage.getRecords().stream()
-                .map(entity -> {
-                    URL avatarUrl = Optional.ofNullable(entity.getAvatarUrl())
-                            .map(urlStr -> {
-                                try {
-                                    return new URL(urlStr);
-                                } catch (Exception e) {
-                                    log.warn("Invalid avatar URL for user: {}", entity.getAccountId(), e);
-                                    return null;
-                                }
-                            })
-                            .orElse(null);
-                    return UserDto.builder()
-                            .accountId(entity.getAccountId())
-                            .username(entity.getUsername())
-                            .email(entity.getEmail())
-                            .avatarUrl(avatarUrl)
-                            .status(entity.getStatus())
-                            .build();
-                }).collect(Collectors.toList());
+                .map(entity -> UserDto.builder()
+                        .accountId(entity.getAccountId())
+                        .username(entity.getUsername())
+                        .email(entity.getEmail())
+                        .avatarUrl(entity.getAvatarUrl())
+                        .status(entity.getStatus())
+                        .build()).collect(Collectors.toList());
 
         return PageResult.<UserDto>builder()
                 .records(userDtos)

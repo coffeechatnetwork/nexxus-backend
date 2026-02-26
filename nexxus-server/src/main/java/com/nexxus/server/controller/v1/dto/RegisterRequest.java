@@ -8,9 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.validator.constraints.URL;
 
 import java.io.Serializable;
-import java.net.URL;
 
 @Data
 @SuperBuilder
@@ -25,5 +25,6 @@ public class RegisterRequest implements Serializable {
     private Long orgId;
     @NotNull
     private AccountType type;
-    private URL avatarUrl;
+    @URL
+    private String avatarUrl;
 }
