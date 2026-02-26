@@ -78,6 +78,13 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
         return new NResponse<>(401, "Unauthorized: Authentication required", null);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public NResponse<?> illegalArgumentException(IllegalArgumentException e) {
+        log.error("IllegalArgumentException Exception", e);
+        return new NResponse<>(400, "illegal argument", null);
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public NResponse<?> exception(Exception e) {
