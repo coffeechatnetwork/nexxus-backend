@@ -15,6 +15,7 @@ import com.nexxus.cos.api.dto.ProjectDto;
 import com.nexxus.cos.api.dto.ProjectListItem;
 import com.nexxus.cos.service.entity.ProjectEntity;
 import com.nexxus.cos.service.service.ProjectService;
+import com.nexxxus.file.api.FileApi;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 public class CosApiImpl implements CosApi {
     private final ProjectService projectService;
     private final OrgApi orgApi;
+    private final FileApi fileApi;
 
     @Override
     public ProjectDto createProject(CreateProjectRequest req) {
@@ -76,13 +78,14 @@ public class CosApiImpl implements CosApi {
         Page<ProjectEntity> entityPage = projectService.listProjects(orgId, page, pageSize);
 
         List<ProjectListItem> dtoList = entityPage.getRecords().stream()
+                .parallel()
                 .map(entity -> ProjectListItem.builder()
                         .displayId(entity.getDisplayId())
                         .orgId(entity.getOrgId())
                         .name(entity.getName())
                         .slug(entity.getSlug())
                         .logoUrl(entity.getLogoUrl())
-                        .imageUrls(entity.getImageUrls())
+                        .imageUrls(fileApi.batchSign(entity.getImageUrls()))
                         .status(entity.getStatus())
                         .build())
                 .collect(Collectors.toList());

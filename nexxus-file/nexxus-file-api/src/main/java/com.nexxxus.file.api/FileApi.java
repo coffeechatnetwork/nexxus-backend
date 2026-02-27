@@ -13,7 +13,9 @@ public interface FileApi {
 
     FileSignResponse sign(FileSignRequest req);
 
-    List<URL> batchSign(List<URL> orginalUrlList);
+    List<String> batchSign(List<String> originalUrls);
+
+    List<URL> batchSignURL(List<URL> orginalUrlList);
 
     List<Attachment> signAttachments(List<Attachment> attachments);
 

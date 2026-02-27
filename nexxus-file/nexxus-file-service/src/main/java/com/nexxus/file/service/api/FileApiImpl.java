@@ -40,8 +40,19 @@ public class FileApiImpl implements FileApi {
     }
 
     @Override
-    public List<URL> batchSign(List<URL> orginalUrlList) {
-        return orginalUrlList.stream()
+    public List<String> batchSign(List<String> originalUrls) {
+        return originalUrls.stream()
+                .map(url -> CompletableFuture.supplyAsync(() -> s3Service.sign(url), executorService))
+                .toList()
+                .stream()
+                .map(CompletableFuture::join)
+                .map(URL::toString)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<URL> batchSignURL(List<URL> originalUrlList) {
+        return originalUrlList.stream()
                 .map(url -> CompletableFuture.supplyAsync(() -> s3Service.sign(url.toString()), executorService))
                 .toList()
                 .stream()
