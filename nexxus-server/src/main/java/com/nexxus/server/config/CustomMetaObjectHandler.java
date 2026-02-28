@@ -27,5 +27,11 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
         String operator = accountInfo != null ? accountInfo.getEmail() : "system";
         this.strictUpdateFill(metaObject, "updatedAt", Instant.class, Instant.now());
         this.strictUpdateFill(metaObject, "updatedBy", String.class, operator);
+
+        // only fill deletedBy when deletedAt is being set (logical delete operation)
+        Object deletedAtValue = metaObject.getValue("deletedAt");
+        if (deletedAtValue != null) {
+            this.strictUpdateFill(metaObject, "deletedBy", String.class, operator);
+        }
     }
 }

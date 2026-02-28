@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -89,6 +90,8 @@ public class CommentApiImpl implements CommentApi {
         if (commentEntity == null) {
             throw new NexxusException(ErrorDefEnum.NOT_FOUND_EXCEPTION.desc("Comment not found"));
         }
+        // set this field so that the CustomMetaObjectHandler can set the deletedBy automatically.
+        commentEntity.setDeletedAt(Instant.now());
         return commentService.removeById(commentEntity);
     }
 

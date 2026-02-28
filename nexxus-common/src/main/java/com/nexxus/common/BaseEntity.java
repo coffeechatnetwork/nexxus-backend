@@ -31,5 +31,6 @@ public class BaseEntity implements Serializable {
     private String updatedBy;
     @TableLogic(value = "NULL", delval = "now()")
     private Instant deletedAt;
+    @TableField(fill = FieldFill.UPDATE)
     private String deletedBy;
 }
