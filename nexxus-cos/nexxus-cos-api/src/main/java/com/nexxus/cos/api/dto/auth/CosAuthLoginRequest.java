@@ -1,4 +1,4 @@
-package com.nexxus.cos.api.dto;
+package com.nexxus.cos.api.dto.auth;
 
 import com.nexxus.common.validations.ValidPassword;
 import jakarta.validation.constraints.Email;

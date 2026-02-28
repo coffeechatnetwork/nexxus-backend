@@ -2,10 +2,10 @@ package com.nexxus.server.controller.v1;
 
 import com.nexxus.common.PageResult;
 import com.nexxus.cos.api.CosApi;
-import com.nexxus.cos.api.dto.CreateProjectRequest;
-import com.nexxus.cos.api.dto.ListProjectRequest;
-import com.nexxus.cos.api.dto.ProjectDto;
-import com.nexxus.cos.api.dto.ProjectListItem;
+import com.nexxus.cos.api.dto.project.CreateProjectRequest;
+import com.nexxus.cos.api.dto.project.ListProjectRequest;
+import com.nexxus.cos.api.dto.project.ProjectDto;
+import com.nexxus.cos.api.dto.project.ProjectListItem;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

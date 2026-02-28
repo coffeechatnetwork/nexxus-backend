@@ -1,4 +1,4 @@
-package com.nexxus.cos.api.dto;
+package com.nexxus.cos.api.dto.auth;
 
 import com.nexxus.common.enums.auth.AccountType;
 import com.nexxus.common.validations.ValidPassword;

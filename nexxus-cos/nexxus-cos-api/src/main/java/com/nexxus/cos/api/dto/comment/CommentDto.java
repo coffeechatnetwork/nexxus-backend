@@ -1,4 +1,4 @@
-package com.nexxus.cos.api.dto;
+package com.nexxus.cos.api.dto.comment;
 
 import com.nexxus.common.enums.cos.comment.CommentType;
 import com.nexxus.common.enums.cos.comment.EntityType;

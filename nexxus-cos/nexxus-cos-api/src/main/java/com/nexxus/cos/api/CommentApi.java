@@ -2,9 +2,9 @@ package com.nexxus.cos.api;
 
 import com.nexxus.common.PageResult;
 import com.nexxus.common.enums.cos.comment.EntityType;
-import com.nexxus.cos.api.dto.CommentDto;
-import com.nexxus.cos.api.dto.CreateCommentRequest;
-import com.nexxus.cos.api.dto.EditCommentRequest;
+import com.nexxus.cos.api.dto.comment.CommentDto;
+import com.nexxus.cos.api.dto.comment.CreateCommentRequest;
+import com.nexxus.cos.api.dto.comment.EditCommentRequest;
 
 public interface CommentApi {
     CommentDto create(CreateCommentRequest req);

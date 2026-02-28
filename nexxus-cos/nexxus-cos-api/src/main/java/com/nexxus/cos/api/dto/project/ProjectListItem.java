@@ -1,4 +1,4 @@
-package com.nexxus.cos.api.dto;
+package com.nexxus.cos.api.dto.project;
 
 import com.nexxus.common.enums.cos.project.ProjectStatus;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.List;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProjectDto implements Serializable {
+public class ProjectListItem implements Serializable {
     private String displayId;
     private Long orgId;
     private String name;

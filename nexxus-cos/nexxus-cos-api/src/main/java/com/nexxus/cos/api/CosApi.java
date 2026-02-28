@@ -1,9 +1,9 @@
 package com.nexxus.cos.api;
 
 import com.nexxus.common.PageResult;
-import com.nexxus.cos.api.dto.CreateProjectRequest;
-import com.nexxus.cos.api.dto.ProjectDto;
-import com.nexxus.cos.api.dto.ProjectListItem;
+import com.nexxus.cos.api.dto.project.CreateProjectRequest;
+import com.nexxus.cos.api.dto.project.ProjectDto;
+import com.nexxus.cos.api.dto.project.ProjectListItem;
 
 public interface CosApi {
     ProjectDto createProject(CreateProjectRequest req);

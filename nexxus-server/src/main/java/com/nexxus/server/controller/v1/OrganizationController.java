@@ -2,9 +2,9 @@ package com.nexxus.server.controller.v1;
 
 import com.nexxus.common.PageResult;
 import com.nexxus.cos.api.OrgApi;
-import com.nexxus.cos.api.dto.CreateOrganizationRequest;
-import com.nexxus.cos.api.dto.ListOrganizationRequest;
-import com.nexxus.cos.api.dto.OrganizationDto;
+import com.nexxus.cos.api.dto.organization.CreateOrganizationRequest;
+import com.nexxus.cos.api.dto.organization.ListOrganizationRequest;
+import com.nexxus.cos.api.dto.organization.OrganizationDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

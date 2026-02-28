@@ -1,4 +1,4 @@
-package com.nexxus.cos.api.dto;
+package com.nexxus.cos.api.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.nexxus.cos.api.dto;
+package com.nexxus.cos.api.dto.organization;
 
 import com.nexxus.common.enums.cos.organization.OrganizationStatus;
 import lombok.AllArgsConstructor;

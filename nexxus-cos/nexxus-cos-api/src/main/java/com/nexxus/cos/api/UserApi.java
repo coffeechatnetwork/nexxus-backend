@@ -1,10 +1,10 @@
 package com.nexxus.cos.api;
 
 import com.nexxus.common.PageResult;
-import com.nexxus.cos.api.dto.CosAuthLoginRequest;
-import com.nexxus.cos.api.dto.CosAuthRegisterRequest;
-import com.nexxus.cos.api.dto.CosAuthResponse;
-import com.nexxus.cos.api.dto.UserDto;
+import com.nexxus.cos.api.dto.auth.CosAuthLoginRequest;
+import com.nexxus.cos.api.dto.auth.CosAuthRegisterRequest;
+import com.nexxus.cos.api.dto.auth.CosAuthResponse;
+import com.nexxus.cos.api.dto.user.UserDto;
 
 public interface UserApi {
     CosAuthResponse register(CosAuthRegisterRequest req);

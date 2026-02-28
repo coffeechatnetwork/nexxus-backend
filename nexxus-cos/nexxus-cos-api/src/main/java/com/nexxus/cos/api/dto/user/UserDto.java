@@ -1,4 +1,4 @@
-package com.nexxus.cos.api.dto;
+package com.nexxus.cos.api.dto.user;
 
 import com.nexxus.common.enums.cos.user.UserStatus;
 import lombok.AllArgsConstructor;

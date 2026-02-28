@@ -2,10 +2,10 @@ package com.nexxus.server.controller.v1;
 
 import com.nexxus.common.PageResult;
 import com.nexxus.cos.api.CommentApi;
-import com.nexxus.cos.api.dto.CommentDto;
-import com.nexxus.cos.api.dto.CreateCommentRequest;
-import com.nexxus.cos.api.dto.EditCommentRequest;
-import com.nexxus.cos.api.dto.ListCommentRequest;
+import com.nexxus.cos.api.dto.comment.CommentDto;
+import com.nexxus.cos.api.dto.comment.CreateCommentRequest;
+import com.nexxus.cos.api.dto.comment.EditCommentRequest;
+import com.nexxus.cos.api.dto.comment.ListCommentRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
