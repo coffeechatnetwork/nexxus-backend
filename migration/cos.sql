@@ -110,3 +110,30 @@ create table if not exists cos_deliverable
 
 create unique index if not exists uq_deliverable_display_id on cos_deliverable (display_id);
 create unique index if not exists uq_deliverable_title on cos_deliverable (title);
+
+-- =============================================
+
+create table if not exists cos_task
+(
+    id                   bigserial                                    not null primary key,
+    version              integer                                      null,
+    display_id           varchar(64)                                  not null,
+    title                varchar(128)                                 not null,
+    short_desc           varchar(64)                                  null,
+    long_desc            text                                         null,
+    assignee             varchar(64)                                  not null,
+    participants         jsonb     default JSON_ARRAY(RETURNING json) not null,
+    deadline             timestamp                                    null,
+    status               varchar(32)                                  not null,
+    attachments          jsonb     default JSON_ARRAY(RETURNING json) not null,
+    related_deliverables jsonb     default JSON_ARRAY(RETURNING json) not null,
+    created_by           varchar(64)                                  not null,
+    updated_by           varchar(64)                                  not null,
+    deleted_by           varchar(64)                                  null,
+    created_at           timestamp DEFAULT CURRENT_TIMESTAMP          not null,
+    updated_at           timestamp DEFAULT CURRENT_TIMESTAMP          not null,
+    deleted_at           timestamp                                    null
+);
+
+create unique index if not exists uq_task_display_id on cos_task (display_id);
+create unique index if not exists uq_task_title on cos_task (title);
