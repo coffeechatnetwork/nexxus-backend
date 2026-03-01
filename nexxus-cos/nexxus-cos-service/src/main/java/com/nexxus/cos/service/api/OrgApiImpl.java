@@ -8,6 +8,7 @@ import com.nexxus.common.enums.cos.organization.OrganizationStatus;
 import com.nexxus.cos.api.OrgApi;
 import com.nexxus.cos.api.dto.organization.CreateOrganizationRequest;
 import com.nexxus.cos.api.dto.organization.OrganizationDto;
+import com.nexxus.cos.service.api.converter.OrganizationConverter;
 import com.nexxus.cos.service.entity.OrganizationEntity;
 import com.nexxus.cos.service.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 public class OrgApiImpl implements OrgApi {
 
     private final OrganizationService organizationService;
+    private final OrganizationConverter organizationConverter;
 
     @Override
     public OrganizationDto createOrganization(CreateOrganizationRequest req) {
@@ -41,12 +43,7 @@ public class OrgApiImpl implements OrgApi {
                 .build();
         organizationService.save(newOrg);
 
-        return OrganizationDto.builder()
-                .displayId(newOrg.getDisplayId())
-                .name(newOrg.getName())
-                .code(newOrg.getCode())
-                .status(newOrg.getStatus())
-                .build();
+        return organizationConverter.toOrganizationDto(newOrg);
     }
 
     @Override
@@ -54,12 +51,7 @@ public class OrgApiImpl implements OrgApi {
         Page<OrganizationEntity> entityPage = organizationService.listOrganizations(page, pageSize);
 
         List<OrganizationDto> dtoList = entityPage.getRecords().stream()
-                .map(entity -> OrganizationDto.builder()
-                        .displayId(entity.getDisplayId())
-                        .name(entity.getName())
-                        .code(entity.getCode())
-                        .status(entity.getStatus())
-                        .build())
+                .map(organizationConverter::toOrganizationDto)
                 .collect(Collectors.toList());
 
         return PageResult.<OrganizationDto>builder()
@@ -77,12 +69,7 @@ public class OrgApiImpl implements OrgApi {
             throw new NexxusException(ErrorDefEnum.NOT_FOUND_EXCEPTION.desc("organization not found"));
         }
 
-        return OrganizationDto.builder()
-                .displayId(organizationEntity.getDisplayId())
-                .name(organizationEntity.getName())
-                .code(organizationEntity.getCode())
-                .status(organizationEntity.getStatus())
-                .build();
+        return organizationConverter.toOrganizationDto(organizationEntity);
     }
 
     @Override
@@ -91,11 +78,6 @@ public class OrgApiImpl implements OrgApi {
         if (organizationEntity == null) {
             throw new NexxusException(ErrorDefEnum.NOT_FOUND_EXCEPTION.desc("organization not found"));
         }
-        return OrganizationDto.builder()
-                .displayId(organizationEntity.getDisplayId())
-                .name(organizationEntity.getName())
-                .code(organizationEntity.getCode())
-                .status(organizationEntity.getStatus())
-                .build();
+        return organizationConverter.toOrganizationDto(organizationEntity);
     }
 }
