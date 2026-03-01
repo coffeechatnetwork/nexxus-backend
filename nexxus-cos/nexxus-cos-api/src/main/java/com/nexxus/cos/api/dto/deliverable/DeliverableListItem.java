@@ -15,6 +15,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeliverableListItem implements Serializable {
+    private String displayId;
     private String title;
     private UserDto assignee;
     private Instant deadline;

@@ -63,6 +63,7 @@ public class DeliverableConverter {
         }
 
         return DeliverableListItem.builder()
+                .displayId(entity.getDisplayId())
                 .title(entity.getTitle())
                 .assignee(userConverter.toUserDto(assignee))
                 .deadline(entity.getDeadline())
