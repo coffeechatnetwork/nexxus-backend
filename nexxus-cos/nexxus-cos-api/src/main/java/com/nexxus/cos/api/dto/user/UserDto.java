@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Data
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto implements Serializable {
-    private String accountId;
+    private UUID accountId;
     private String firstName;
     private String lastName;
     private String username;

@@ -9,6 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.UUID;
+
 @Data
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
@@ -16,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName("cos_user")
 public class UserEntity extends BaseEntity {
-    private String accountId;
+    private UUID accountId;
     private Long orgId;
     private String email;
     private String firstName;

@@ -1,6 +1,7 @@
 package com.nexxus.cos.service.config;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.nexxus.common.handlers.UuidTypeHandler;
 import com.nexxus.common.vo.Attachment;
 import com.nexxus.cos.service.entity.handlers.JsonbAttachmentListTypeHandler;
 import com.nexxus.cos.service.entity.handlers.JsonbStringListTypeHandler;
@@ -12,6 +13,7 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
+import java.util.UUID;
 
 @Configuration
 @RequiredArgsConstructor
@@ -22,6 +24,9 @@ public class MyBatisPlusConfig {
     @PostConstruct
     public void registerTypeHandlers() {
         TypeHandlerRegistry registry = sqlSessionFactory.getConfiguration().getTypeHandlerRegistry();
+        registry.register(UUID.class, JdbcType.VARCHAR, UuidTypeHandler.class);
+        registry.register(UuidTypeHandler.class);
+
         registry.register(new TypeReference<List<String>>(){}.getClass(), JdbcType.OTHER, JsonbStringListTypeHandler.class);
         registry.register(JsonbStringListTypeHandler.class);
 

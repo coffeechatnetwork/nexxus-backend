@@ -48,7 +48,7 @@ public class UserApiImpl implements UserApi {
         UUID accountID = authResponse.getAccountId();
         String avatarUrl = req.getAvatarUrl();
         UserEntity newUserEntity = UserEntity.builder()
-                .accountId(accountID.toString())
+                .accountId(accountID)
                 .orgId(req.getOrgId())
                 .email(req.getEmail())
                 .firstName(req.getFirstName())
