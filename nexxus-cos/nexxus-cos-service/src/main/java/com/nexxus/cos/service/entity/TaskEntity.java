@@ -3,7 +3,7 @@ package com.nexxus.cos.service.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.nexxus.common.BaseEntity;
-import com.nexxus.common.enums.cos.deliverable.DeliverableStatus;
+import com.nexxus.common.enums.cos.task.TaskStatus;
 import com.nexxus.common.handlers.UuidTypeHandler;
 import com.nexxus.common.vo.Attachment;
 import com.nexxus.cos.service.entity.handlers.JsonbAttachmentListTypeHandler;
@@ -35,7 +35,7 @@ public class TaskEntity extends BaseEntity {
     @TableField(typeHandler = JsonbUuidListTypeHandler.class, jdbcType = JdbcType.OTHER)
     private List<UUID> participants;
     private Instant deadline;
-    private DeliverableStatus status;
+    private TaskStatus status;
     @TableField(typeHandler = JsonbAttachmentListTypeHandler.class, jdbcType = JdbcType.OTHER)
     private List<Attachment> attachments;
     @TableField(typeHandler = JsonbUuidListTypeHandler.class, jdbcType = JdbcType.OTHER)

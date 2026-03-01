@@ -1,4 +1,4 @@
-package com.nexxus.cos.api.dto.user;
+package com.nexxus.cos.api.dto.task;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ListUserRequest implements Serializable {
+public class ListTaskRequest implements Serializable {
     @NotNull
     private Long page;
     @NotNull
