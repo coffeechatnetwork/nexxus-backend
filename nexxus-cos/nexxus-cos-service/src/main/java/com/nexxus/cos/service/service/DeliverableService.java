@@ -5,4 +5,6 @@ import com.nexxus.cos.service.entity.DeliverableEntity;
 
 public interface DeliverableService extends IService<DeliverableEntity> {
     DeliverableEntity getByTitle(String title);
+
+    DeliverableEntity getByDisplayId(String displayId);
 }

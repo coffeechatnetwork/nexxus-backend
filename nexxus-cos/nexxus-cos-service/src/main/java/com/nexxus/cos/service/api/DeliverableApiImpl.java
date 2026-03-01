@@ -54,4 +54,13 @@ public class DeliverableApiImpl implements DeliverableApi {
         deliverableService.save(newDeliverable);
         return deliverableConverter.toDeliverableDto(newDeliverable);
     }
+
+    @Override
+    public DeliverableDto getByDisplayId(String displayId) {
+        DeliverableEntity deliverableEntity = deliverableService.getByDisplayId(displayId);
+        if (deliverableEntity == null) {
+            throw new NexxusException(ErrorDefEnum.NOT_FOUND_EXCEPTION.desc("deliverable not found"));
+        }
+        return deliverableConverter.toDeliverableDto(deliverableEntity);
+    }
 }

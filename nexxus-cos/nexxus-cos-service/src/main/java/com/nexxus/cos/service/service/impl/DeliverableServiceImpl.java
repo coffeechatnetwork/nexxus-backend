@@ -18,4 +18,11 @@ public class DeliverableServiceImpl extends ServiceImpl<DeliverableMapper, Deliv
                 .eq(DeliverableEntity::getTitle, title)
                 .one();
     }
+
+    @Override
+    public DeliverableEntity getByDisplayId(String displayId) {
+        return lambdaQuery()
+                .eq(DeliverableEntity::getDisplayId, displayId)
+                .one();
+    }
 }
