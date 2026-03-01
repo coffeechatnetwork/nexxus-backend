@@ -27,6 +27,7 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.util.Base64;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -62,9 +63,8 @@ public class AuthApiImpl implements AuthApi {
         String saltedPassword = req.getPassword() + salt;
         String pwdHash = passwordEncoder.encode(saltedPassword);
 
-        String displayId = Optional.ofNullable(req.getDisplayId())
-                .filter(id -> !Strings.isBlank(id))
-                .orElse(UUID.randomUUID().toString());
+        UUID displayId = Optional.ofNullable(req.getDisplayId())
+                .orElse(UUID.randomUUID());
 
         AccountEntity accountEntity = AccountEntity.builder()
                 .displayId(displayId)
@@ -93,7 +93,7 @@ public class AuthApiImpl implements AuthApi {
         return AuthResponse.builder()
                 .token(signedJWT.serialize())
                 .expiresInSeconds(expiredInSeconds)
-                .accountId(UUID.fromString(accountEntity.getDisplayId()))
+                .accountId(accountEntity.getDisplayId())
                 .build();
     }
 
@@ -131,7 +131,7 @@ public class AuthApiImpl implements AuthApi {
         return AuthResponse.builder()
                 .token(signedJWT.serialize())
                 .expiresInSeconds(expiredInSeconds)
-                .accountId(UUID.fromString(accountEntity.getDisplayId()))
+                .accountId(accountEntity.getDisplayId())
                 .build();
     }
 

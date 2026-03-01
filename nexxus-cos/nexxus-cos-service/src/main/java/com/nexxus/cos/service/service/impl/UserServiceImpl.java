@@ -26,7 +26,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     }
 
     @Override
-    public UserEntity getByAccountId(String accountId) {
+    public UserEntity getByAccountId(UUID accountId) {
         return lambdaQuery()
                 .eq(UserEntity::getAccountId, accountId)
                 .one();

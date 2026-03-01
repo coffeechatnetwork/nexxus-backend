@@ -22,6 +22,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -53,7 +54,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             SignedJWT signedJWT = authApi.parseAndVerifyJWT(token);
             JWTClaimsSet claimsSet = signedJWT.getJWTClaimsSet();
 
-            String accountId = claimsSet.getSubject();
+            UUID accountId = UUID.fromString(claimsSet.getSubject());
             String orgId = claimsSet.getStringClaim("orgId");
             String email = claimsSet.getStringClaim("email");
 

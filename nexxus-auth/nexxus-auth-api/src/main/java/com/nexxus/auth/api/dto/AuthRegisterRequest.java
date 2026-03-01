@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Data
 @SuperBuilder
@@ -21,7 +22,7 @@ public class AuthRegisterRequest implements Serializable {
     private String email;
     @ValidPassword
     private String password;
-    private String displayId;
+    private UUID displayId;
     private Long orgId;
     @NotNull
     private AppCode appCode;

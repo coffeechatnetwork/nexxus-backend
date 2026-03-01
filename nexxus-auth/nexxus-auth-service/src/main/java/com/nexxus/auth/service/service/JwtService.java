@@ -5,10 +5,11 @@ import com.nimbusds.jwt.SignedJWT;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.UUID;
 
 public interface JwtService {
 
-    SignedJWT generateJWT(String subject, List<String> audiences, String orgId, String email) throws JOSEException;
+    SignedJWT generateJWT(UUID subject, List<String> audiences, String orgId, String email) throws JOSEException;
 
     SignedJWT parseAndVerifyJWT(String token) throws ParseException, JOSEException;
 }

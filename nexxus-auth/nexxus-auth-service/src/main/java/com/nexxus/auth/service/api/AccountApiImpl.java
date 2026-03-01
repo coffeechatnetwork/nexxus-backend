@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -20,7 +21,7 @@ public class AccountApiImpl implements AccountApi {
     private final AccountService accountService;
 
     @Override
-    public AccountDto getByDisplayId(String displayId) {
+    public AccountDto getByDisplayId(UUID displayId) {
         AccountEntity accountEntity = accountService.getByDisplayId(displayId);
         if (accountEntity == null) {
             throw new NexxusException(ErrorDefEnum.NOT_FOUND_EXCEPTION.desc("account not found"));

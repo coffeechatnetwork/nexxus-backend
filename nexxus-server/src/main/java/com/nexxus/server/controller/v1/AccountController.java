@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/v1/accounts")
 @RequiredArgsConstructor
@@ -24,12 +26,12 @@ public class AccountController {
     @GetMapping("/me")
     public AccountDto getMyAccount() {
         AccountInfo accountInfo = AccountInfoContext.get();
-        String displayId = accountInfo.getAccountId();
+        UUID displayId = accountInfo.getAccountId();
         return accountApi.getByDisplayId(displayId);
     }
 
     @GetMapping("/{displayId}")
-    public AccountDto getAccountById(@PathVariable String displayId) {
+    public AccountDto getAccountById(@PathVariable UUID displayId) {
         return accountApi.getByDisplayId(displayId);
     }
 

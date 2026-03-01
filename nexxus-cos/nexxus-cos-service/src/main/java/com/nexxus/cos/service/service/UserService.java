@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface UserService extends IService<UserEntity> {
     UserEntity getByEmail(String email);
 
-    UserEntity getByAccountId(String accountId);
+    UserEntity getByAccountId(UUID accountId);
 
     Page<UserEntity> listUsers(Long orgId, Long page, Long pageSize);
 

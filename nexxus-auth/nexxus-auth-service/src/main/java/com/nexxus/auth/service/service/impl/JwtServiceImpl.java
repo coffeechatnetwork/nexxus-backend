@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -28,11 +29,11 @@ public class JwtServiceImpl implements JwtService {
     private final RSAKey rsaKey;
 
     @Override
-    public SignedJWT generateJWT(String subject, List<String> audiences, String orgId, String email) throws JOSEException {
+    public SignedJWT generateJWT(UUID subject, List<String> audiences, String orgId, String email) throws JOSEException {
         Instant now = Instant.now();
         Instant exp = now.plusSeconds(jwtProperties.getJwtTtl());
         JWTClaimsSet.Builder builder = new JWTClaimsSet.Builder()
-                .subject(subject)
+                .subject(subject.toString())
                 .audience(audiences)
                 .issuer(jwtProperties.getIssuer())
                 .issueTime(new Date())

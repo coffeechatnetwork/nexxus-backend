@@ -11,6 +11,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.UUID;
+
 @Data
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
@@ -18,7 +20,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @TableName("account")
 public class AccountEntity extends BaseEntity {
-    private String displayId;
+    private UUID displayId;
     private AppCode appCode;
     private Long orgId;
     private AccountType type;

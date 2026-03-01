@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @Slf4j
 @RestController
 @RequestMapping("/v1/users")
@@ -26,12 +28,12 @@ public class UserController {
     @GetMapping("/me")
     public UserDto me() {
         AccountInfo accountInfo = AccountInfoContext.get();
-        String accountId = accountInfo.getAccountId();
+        UUID accountId = accountInfo.getAccountId();
         return userApi.getUserByAccountId(accountId);
     }
 
     @GetMapping("/{accountId}")
-    public UserDto getByAccountId(@PathVariable String accountId) {
+    public UserDto getByAccountId(@PathVariable UUID accountId) {
         return userApi.getUserByAccountId(accountId);
     }
 

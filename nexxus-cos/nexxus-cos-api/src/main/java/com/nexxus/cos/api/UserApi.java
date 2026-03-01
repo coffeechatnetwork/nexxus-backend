@@ -6,12 +6,14 @@ import com.nexxus.cos.api.dto.auth.CosAuthRegisterRequest;
 import com.nexxus.cos.api.dto.auth.CosAuthResponse;
 import com.nexxus.cos.api.dto.user.UserDto;
 
+import java.util.UUID;
+
 public interface UserApi {
     CosAuthResponse register(CosAuthRegisterRequest req);
 
     CosAuthResponse login(CosAuthLoginRequest req);
 
-    UserDto getUserByAccountId(String accountId);
+    UserDto getUserByAccountId(UUID accountId);
 
     PageResult<UserDto> listUsers(Long page, Long pageSize);
 }

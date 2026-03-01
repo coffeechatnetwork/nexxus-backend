@@ -37,7 +37,7 @@ public class UserApiImpl implements UserApi {
 
     @Override
     public CosAuthResponse register(CosAuthRegisterRequest req) {
-        String displayId = UUID.randomUUID().toString();
+        UUID displayId = UUID.randomUUID();
         AuthRegisterRequest authRegisterReq = AuthRegisterRequest.builder()
                 .email(req.getEmail())
                 .password(req.getPassword())
@@ -89,7 +89,7 @@ public class UserApiImpl implements UserApi {
     }
 
     @Override
-    public UserDto getUserByAccountId(String accountId) {
+    public UserDto getUserByAccountId(UUID accountId) {
         UserEntity userEntity = userService.getByAccountId(accountId);
         if (userEntity == null) {
             throw new NexxusException(ErrorDefEnum.NOT_FOUND_EXCEPTION.desc("user of this accountId not found"));

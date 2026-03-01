@@ -9,13 +9,14 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @SuperBuilder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountDto implements Serializable {
-    private String displayId;
+    private UUID displayId;
     private AppCode appCode;
     private Long orgId;
     private AccountType type;

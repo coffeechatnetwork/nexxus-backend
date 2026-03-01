@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -27,7 +29,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, AccountEntity
     }
 
     @Override
-    public AccountEntity getByDisplayId(String displayId) {
+    public AccountEntity getByDisplayId(UUID displayId) {
         LambdaQueryWrapper<AccountEntity> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(AccountEntity::getDisplayId, displayId);
         return accountMapper.selectOne(queryWrapper);
