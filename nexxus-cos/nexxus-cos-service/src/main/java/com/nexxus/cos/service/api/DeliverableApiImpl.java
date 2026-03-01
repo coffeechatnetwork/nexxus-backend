@@ -2,10 +2,12 @@ package com.nexxus.cos.service.api;
 
 import com.nexxus.common.ErrorDefEnum;
 import com.nexxus.common.NexxusException;
+import com.nexxus.common.PageResult;
 import com.nexxus.common.enums.cos.deliverable.DeliverableStatus;
 import com.nexxus.cos.api.DeliverableApi;
 import com.nexxus.cos.api.dto.deliverable.CreateDeliverableRequest;
 import com.nexxus.cos.api.dto.deliverable.DeliverableDto;
+import com.nexxus.cos.api.dto.deliverable.DeliverableListItem;
 import com.nexxus.cos.api.dto.deliverable.EditDeliverableRequest;
 import com.nexxus.cos.service.api.converter.DeliverableConverter;
 import com.nexxus.cos.service.entity.DeliverableEntity;
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -76,5 +79,21 @@ public class DeliverableApiImpl implements DeliverableApi {
         deliverableEntity.setStatus(req.getStatus());
         deliverableService.updateById(deliverableEntity);
         return deliverableConverter.toDeliverableDto(deliverableEntity);
+    }
+
+    @Override
+    public PageResult<DeliverableListItem> list(Long page, Long pageSize) {
+        var entityPage = deliverableService.listDeliverables(page, pageSize);
+
+        List<DeliverableListItem> items = entityPage.getRecords().stream()
+                .map(deliverableConverter::toDeliverableListItem)
+                .collect(java.util.stream.Collectors.toList());
+
+        return PageResult.<DeliverableListItem>builder()
+                .records(items)
+                .total(entityPage.getTotal())
+                .pageSize(entityPage.getSize())
+                .page(entityPage.getCurrent())
+                .build();
     }
 }

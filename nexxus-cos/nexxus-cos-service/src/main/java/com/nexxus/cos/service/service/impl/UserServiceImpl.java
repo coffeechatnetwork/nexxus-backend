@@ -36,7 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
             return null;
         }
         return lambdaQuery()
-                .eq(UserEntity::getAccountId, accountId)
+                .eq(UserEntity::getAccountId, accountId.toString())
                 .one();
     }
 
@@ -61,8 +61,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
 
     @Override
     public Map<UUID, UserEntity> mapByAccountIds(List<UUID> accountIds) {
+        List<String> accountIdStrList = accountIds.stream().map(UUID::toString).toList();
         List<UserEntity> userEntities = lambdaQuery()
-                .in(UserEntity::getAccountId, accountIds)
+                .in(UserEntity::getAccountId, accountIdStrList)
                 .list();
         return userEntities.stream()
                 .collect(Collectors.toMap(UserEntity::getAccountId, user -> user));

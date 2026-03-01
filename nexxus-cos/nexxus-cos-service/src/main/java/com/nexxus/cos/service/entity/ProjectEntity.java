@@ -26,7 +26,7 @@ public class ProjectEntity extends BaseEntity {
     private String name;
     private String slug;
     private String logoUrl;
-    @TableField(value = "image_urls", typeHandler = JsonbStringListTypeHandler.class, jdbcType = JdbcType.OTHER)
+    @TableField(typeHandler = JsonbStringListTypeHandler.class, jdbcType = JdbcType.OTHER)
     private List<String> imageUrls;
     private ProjectStatus status;
 }

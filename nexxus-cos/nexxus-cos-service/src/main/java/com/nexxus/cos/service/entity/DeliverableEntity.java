@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.nexxus.common.BaseEntity;
 import com.nexxus.common.enums.cos.deliverable.DeliverableStatus;
+import com.nexxus.common.handlers.UuidTypeHandler;
 import com.nexxus.common.vo.Attachment;
 import com.nexxus.cos.service.entity.handlers.JsonbAttachmentListTypeHandler;
 import com.nexxus.cos.service.entity.handlers.JsonbUuidListTypeHandler;
@@ -23,12 +24,13 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("cos_deliverable")
+@TableName(value = "cos_deliverable", autoResultMap = true)
 public class DeliverableEntity extends BaseEntity {
     private String displayId;
     private String title;
     private String shortDesc;
     private String longDesc;
+    @TableField(typeHandler = UuidTypeHandler.class, jdbcType = JdbcType.VARCHAR)
     private UUID assignee;
     @TableField(typeHandler = JsonbUuidListTypeHandler.class, jdbcType = JdbcType.OTHER)
     private List<UUID> participants;

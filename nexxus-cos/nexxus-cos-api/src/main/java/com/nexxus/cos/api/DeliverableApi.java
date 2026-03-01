@@ -1,7 +1,9 @@
 package com.nexxus.cos.api;
 
+import com.nexxus.common.PageResult;
 import com.nexxus.cos.api.dto.deliverable.CreateDeliverableRequest;
 import com.nexxus.cos.api.dto.deliverable.DeliverableDto;
+import com.nexxus.cos.api.dto.deliverable.DeliverableListItem;
 import com.nexxus.cos.api.dto.deliverable.EditDeliverableRequest;
 
 public interface DeliverableApi {
@@ -10,4 +12,6 @@ public interface DeliverableApi {
     DeliverableDto getByDisplayId(String displayId);
 
     DeliverableDto edit(String displayId, EditDeliverableRequest req);
+
+    PageResult<DeliverableListItem> list(Long page, Long pageSize);
 }

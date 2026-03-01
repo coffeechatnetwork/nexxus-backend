@@ -1,9 +1,12 @@
 package com.nexxus.server.controller.v1;
 
+import com.nexxus.common.PageResult;
 import com.nexxus.cos.api.DeliverableApi;
 import com.nexxus.cos.api.dto.deliverable.CreateDeliverableRequest;
 import com.nexxus.cos.api.dto.deliverable.DeliverableDto;
+import com.nexxus.cos.api.dto.deliverable.DeliverableListItem;
 import com.nexxus.cos.api.dto.deliverable.EditDeliverableRequest;
+import com.nexxus.cos.api.dto.deliverable.ListDeliverableRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,5 +40,11 @@ public class DeliverableController {
     public DeliverableDto edit(@PathVariable String displayId, @RequestBody @Valid EditDeliverableRequest req) {
         log.info("edit deliverable req: {}", req);
         return deliverableApi.edit(displayId, req);
+    }
+
+    @PostMapping("/list")
+    public PageResult<DeliverableListItem> list(@RequestBody @Valid ListDeliverableRequest req) {
+        log.info("list deliverable req: {}", req);
+        return deliverableApi.list(req.getPage(), req.getPageSize());
     }
 }
