@@ -1,5 +1,6 @@
 package com.nexxus.server.config;
 
+import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
@@ -8,6 +9,7 @@ import com.nexxus.common.AccountInfo;
 import com.nexxus.common.AccountInfoContext;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.StringValue;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -44,5 +46,13 @@ public class MybatisPlusConfig {
         interceptor.addInnerInterceptor(pagination);
 
         return interceptor;
+    }
+
+    @Bean
+    @ConditionalOnProperty(name = "app.env", havingValue = "dev")
+    public ConfigurationCustomizer mybatisConfigurationCustomizer() {
+        return configuration -> {
+            configuration.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
+        };
     }
 }

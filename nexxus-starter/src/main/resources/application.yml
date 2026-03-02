@@ -1,3 +1,5 @@
+app:
+  env: dev
 server:
   port: ${app.port:8080}
 spring:
