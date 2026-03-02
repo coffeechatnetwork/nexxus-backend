@@ -110,7 +110,7 @@ create table if not exists cos_deliverable
 );
 
 create unique index if not exists uq_deliverable_display_id on cos_deliverable (display_id);
-create unique index if not exists uq_deliverable_title on cos_deliverable (title);
+create unique index if not exists uq_deliverable_org_title on cos_deliverable (org_id, title);
 
 -- =============================================
 
@@ -138,7 +138,7 @@ create table if not exists cos_task
 );
 
 create unique index if not exists uq_task_display_id on cos_task (display_id);
-create unique index if not exists uq_task_title on cos_task (title);
+create unique index if not exists uq_task_org_title on cos_task (org_id, title);
 
 -- =============================================
 
@@ -156,7 +156,7 @@ create table if not exists cos_document_folder
     deleted_at timestamp                           null
 );
 
-create unique index if not exists uq_doc_folder_name on cos_document_folder (name);
+create unique index if not exists uq_doc_folder_org_name on cos_document_folder (org_id, name);
 
 -- =============================================
 
@@ -176,4 +176,5 @@ create table if not exists cos_document_file
     deleted_at  timestamp                           null
 );
 
-create unique index if not exists uq_doc_folder_name on cos_document_file (folder_name, name);
+create unique index if not exists uq_doc_file_org_folder on cos_document_file (org_id, folder_name);
+create unique index if not exists uq_doc_file_org_folder_name on cos_document_file (org_id, folder_name, name);
