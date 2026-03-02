@@ -19,4 +19,5 @@ public class EditDeliverableRequest implements Serializable {
     private List<Attachment> attachments;
     private List<UUID> participants;
     private DeliverableStatus status;
+    private List<String> relatedTasks;
 }

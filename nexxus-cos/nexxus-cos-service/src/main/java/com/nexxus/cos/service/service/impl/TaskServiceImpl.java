@@ -9,6 +9,11 @@ import com.nexxus.cos.service.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -33,5 +38,18 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, TaskEntity> impleme
         LambdaQueryWrapper<TaskEntity> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.orderByDesc(TaskEntity::getId);
         return taskMapper.selectPage(pageParam, queryWrapper);
+    }
+
+    @Override
+    public Map<String, TaskEntity> mapByDisplayIds(List<String> displayIds) {
+        if (CollectionUtils.isEmpty(displayIds)) {
+            return Map.of();
+        }
+
+        List<TaskEntity> taskEntities = lambdaQuery()
+                .in(TaskEntity::getDisplayId, displayIds)
+                .list();
+        return taskEntities.stream()
+                .collect(Collectors.toMap(TaskEntity::getDisplayId, task -> task));
     }
 }

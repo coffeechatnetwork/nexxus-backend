@@ -11,6 +11,9 @@ import com.nexxus.cos.service.service.DeliverableService;
 import com.nexxus.cos.service.service.UserService;
 import com.nexxxus.file.api.FileApi;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class TaskConverter {
@@ -28,7 +32,7 @@ public class TaskConverter {
     private final UserConverter userConverter;
     private final FileApi fileApi;
     private final DeliverableService deliverableService;
-    private final DeliverableConverter deliverableConverter;
+    private final ApplicationContext applicationContext;
 
     public TaskDto toTaskDto(TaskEntity entity) {
         UserEntity assignee = userService.getByAccountId(entity.getAssignee());
@@ -42,9 +46,13 @@ public class TaskConverter {
         }
         List<DeliverableEntity> relatedDeliverables = deliverableService.mapByDisplayIds(entity.getRelatedDeliverables())
                 .values().stream().toList();
-        List<DeliverableListItem> relatedDeliverableItems = relatedDeliverables.stream()
-                .map(deliverableConverter::toDeliverableListItem)
-                .toList();
+        List<DeliverableListItem> relatedDeliverableItems = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(relatedDeliverables)) {
+            DeliverableConverter deliverableConverter = applicationContext.getBean(DeliverableConverter.class);
+            relatedDeliverableItems = relatedDeliverables.stream()
+                    .map(deliverableConverter::toDeliverableListItem)
+                    .collect(Collectors.toList());
+        }
 
         return TaskDto.builder()
                 .orgId(entity.getOrgId())

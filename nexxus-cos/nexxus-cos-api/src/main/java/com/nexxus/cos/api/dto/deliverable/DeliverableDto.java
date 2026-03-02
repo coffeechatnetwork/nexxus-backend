@@ -2,6 +2,7 @@ package com.nexxus.cos.api.dto.deliverable;
 
 import com.nexxus.common.enums.cos.deliverable.DeliverableStatus;
 import com.nexxus.common.vo.Attachment;
+import com.nexxus.cos.api.dto.task.TaskListItem;
 import com.nexxus.cos.api.dto.user.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class DeliverableDto implements Serializable {
     private List<UserDto> participants;
     private DeliverableStatus status;
     private List<Attachment> attachments;
+    private List<TaskListItem> relatedTasks;
     private UserDto createdBy;
     private UserDto updatedBy;
     private Instant createdAt;

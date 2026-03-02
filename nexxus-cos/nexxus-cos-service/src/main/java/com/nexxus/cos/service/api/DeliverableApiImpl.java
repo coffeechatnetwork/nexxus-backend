@@ -85,6 +85,7 @@ public class DeliverableApiImpl implements DeliverableApi {
         deliverableEntity.setAttachments(req.getAttachments());
         deliverableEntity.setParticipants(req.getParticipants());
         deliverableEntity.setStatus(req.getStatus());
+        deliverableEntity.setRelatedTasks(req.getRelatedTasks());
         deliverableService.updateById(deliverableEntity);
         return deliverableConverter.toDeliverableDto(deliverableEntity);
     }
