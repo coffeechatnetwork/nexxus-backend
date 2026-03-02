@@ -2,6 +2,7 @@ package com.nexxus.cos.service.api.converter;
 
 import com.nexxus.cos.api.dto.deliverable.DeliverableListItem;
 import com.nexxus.cos.api.dto.task.TaskDto;
+import com.nexxus.cos.api.dto.task.TaskListItem;
 import com.nexxus.cos.api.dto.user.UserDto;
 import com.nexxus.cos.service.entity.DeliverableEntity;
 import com.nexxus.cos.service.entity.TaskEntity;
@@ -13,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,6 +61,24 @@ public class TaskConverter {
                 .createdAt(entity.getCreatedAt())
                 .updatedBy(userConverter.toUserDto(updater))
                 .updatedAt(entity.getUpdatedAt())
+                .build();
+    }
+
+    public TaskListItem toTaskListItem(TaskEntity entity) {
+        UserEntity assignee = userService.getByAccountId(entity.getAssignee());
+
+        Integer daysToDeadline = null;
+        if (entity.getDeadline() != null) {
+            long days = Duration.between(Instant.now(), entity.getDeadline()).toDays();
+            daysToDeadline = (int) days;
+        }
+        return TaskListItem.builder()
+                .displayId(entity.getDisplayId())
+                .title(entity.getTitle())
+                .assignee(userConverter.toUserDto(assignee))
+                .deadline(entity.getDeadline())
+                .daysToDeadline(daysToDeadline)
+                .status(entity.getStatus())
                 .build();
     }
 }

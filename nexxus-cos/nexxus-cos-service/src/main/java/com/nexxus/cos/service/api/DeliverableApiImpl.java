@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -87,7 +88,7 @@ public class DeliverableApiImpl implements DeliverableApi {
 
         List<DeliverableListItem> items = entityPage.getRecords().stream()
                 .map(deliverableConverter::toDeliverableListItem)
-                .collect(java.util.stream.Collectors.toList());
+                .collect(Collectors.toList());
 
         return PageResult.<DeliverableListItem>builder()
                 .records(items)

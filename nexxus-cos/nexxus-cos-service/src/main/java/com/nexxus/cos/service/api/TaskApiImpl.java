@@ -1,5 +1,6 @@
 package com.nexxus.cos.service.api;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nexxus.common.ErrorDefEnum;
 import com.nexxus.common.NexxusException;
 import com.nexxus.common.PageResult;
@@ -18,7 +19,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -82,6 +85,15 @@ public class TaskApiImpl implements TaskApi {
 
     @Override
     public PageResult<TaskListItem> listTasks(Long page, Long pageSize) {
-        return null;
+        Page<TaskEntity> taskEntityPage = taskService.listTasks(page, pageSize);
+        List<TaskListItem> items = taskEntityPage.getRecords().stream()
+                .map(taskConverter::toTaskListItem)
+                .collect(Collectors.toList());
+        return PageResult.<TaskListItem>builder()
+                .records(items)
+                .total(taskEntityPage.getTotal())
+                .pageSize(taskEntityPage.getSize())
+                .page(taskEntityPage.getCurrent())
+                .build();
     }
 }
