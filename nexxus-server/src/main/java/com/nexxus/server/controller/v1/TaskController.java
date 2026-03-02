@@ -32,7 +32,7 @@ public class TaskController {
     }
 
     @GetMapping("/{displayId}")
-    public TaskDto detail(String displayId) {
+    public TaskDto detail(@PathVariable String displayId) {
         return taskApi.getByDisplayId(displayId);
     }
 
