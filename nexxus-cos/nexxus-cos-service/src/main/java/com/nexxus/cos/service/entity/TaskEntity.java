@@ -7,6 +7,7 @@ import com.nexxus.common.enums.cos.task.TaskStatus;
 import com.nexxus.common.handlers.UuidTypeHandler;
 import com.nexxus.common.vo.Attachment;
 import com.nexxus.cos.service.entity.handlers.JsonbAttachmentListTypeHandler;
+import com.nexxus.cos.service.entity.handlers.JsonbStringListTypeHandler;
 import com.nexxus.cos.service.entity.handlers.JsonbUuidListTypeHandler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,6 +39,6 @@ public class TaskEntity extends BaseEntity {
     private TaskStatus status;
     @TableField(typeHandler = JsonbAttachmentListTypeHandler.class, jdbcType = JdbcType.OTHER)
     private List<Attachment> attachments;
-    @TableField(typeHandler = JsonbUuidListTypeHandler.class, jdbcType = JdbcType.OTHER)
-    private List<UUID> relatedDeliverables;
+    @TableField(typeHandler = JsonbStringListTypeHandler.class, jdbcType = JdbcType.OTHER)
+    private List<String> relatedDeliverables;
 }

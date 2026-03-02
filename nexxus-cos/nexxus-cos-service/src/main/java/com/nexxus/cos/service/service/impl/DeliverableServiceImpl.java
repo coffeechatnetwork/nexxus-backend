@@ -9,6 +9,11 @@ import com.nexxus.cos.service.service.DeliverableService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -37,5 +42,18 @@ public class DeliverableServiceImpl extends ServiceImpl<DeliverableMapper, Deliv
         LambdaQueryWrapper<DeliverableEntity> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.orderByDesc(DeliverableEntity::getId);
         return deliverableMapper.selectPage(pageParam, queryWrapper);
+    }
+
+    @Override
+    public Map<String, DeliverableEntity> mapByDisplayIds(List<String> displayIds) {
+        if (CollectionUtils.isEmpty(displayIds)) {
+            return Map.of();
+        }
+        List<DeliverableEntity> deliverableEntities = lambdaQuery()
+                .in(DeliverableEntity::getDisplayId, displayIds)
+                .list();
+        return deliverableEntities.stream()
+                .collect(Collectors.toMap(DeliverableEntity::getDisplayId,
+                        deliverableEntity -> deliverableEntity));
     }
 }

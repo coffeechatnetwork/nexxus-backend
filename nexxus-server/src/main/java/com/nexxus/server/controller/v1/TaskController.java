@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/tasks")
 public class TaskController {
 
-    private TaskApi taskApi;
+    private final TaskApi taskApi;
 
     @PostMapping("")
     public TaskDto createTask(@RequestBody @Valid CreateTaskRequest req) {

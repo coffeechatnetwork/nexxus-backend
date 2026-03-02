@@ -8,6 +8,7 @@ import com.nexxus.cos.service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -61,6 +62,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
 
     @Override
     public Map<UUID, UserEntity> mapByAccountIds(List<UUID> accountIds) {
+        if (CollectionUtils.isEmpty(accountIds)) {
+            return Map.of();
+        }
         List<String> accountIdStrList = accountIds.stream().map(UUID::toString).toList();
         List<UserEntity> userEntities = lambdaQuery()
                 .in(UserEntity::getAccountId, accountIdStrList)
