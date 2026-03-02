@@ -13,8 +13,8 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("cos_document")
-public class DocumentEntity extends BaseEntity {
+@TableName("cos_document_file")
+public class DocumentFileEntity extends BaseEntity {
     private String folderName;
     private String name;
     private String docUrl;

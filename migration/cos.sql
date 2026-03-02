@@ -157,7 +157,7 @@ create unique index if not exists uq_doc_folder_name on cos_document_folder (nam
 
 -- =============================================
 
-create table if not exists cos_document
+create table if not exists cos_document_file
 (
     id          bigserial                           not null primary key,
     version     integer                             null,
@@ -172,4 +172,4 @@ create table if not exists cos_document
     deleted_at  timestamp                           null
 );
 
-create unique index if not exists uq_doc_folder_name on cos_document (folder_name, name);
+create unique index if not exists uq_doc_folder_name on cos_document_file (folder_name, name);
