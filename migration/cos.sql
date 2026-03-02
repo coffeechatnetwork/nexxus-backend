@@ -92,6 +92,7 @@ create table if not exists cos_deliverable
     id            bigserial                                    not null primary key,
     version       integer                                      null,
     org_id        bigint                                       not null,
+    project_id    bigint                                       not null,
     display_id    varchar(64)                                  not null,
     title         varchar(128)                                 not null,
     short_desc    varchar(64)                                  null,
@@ -111,7 +112,7 @@ create table if not exists cos_deliverable
 );
 
 create unique index if not exists uq_deliverable_display_id on cos_deliverable (display_id);
-create unique index if not exists uq_deliverable_org_title on cos_deliverable (org_id, title);
+create unique index if not exists uq_deliverable_project_title on cos_deliverable (project_id, title);
 
 -- =============================================
 

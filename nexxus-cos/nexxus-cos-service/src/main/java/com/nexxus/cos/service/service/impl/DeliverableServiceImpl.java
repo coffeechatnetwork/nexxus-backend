@@ -23,8 +23,9 @@ public class DeliverableServiceImpl extends ServiceImpl<DeliverableMapper, Deliv
     private final DeliverableMapper deliverableMapper;
 
     @Override
-    public DeliverableEntity getByTitle(String title) {
+    public DeliverableEntity getByProjectIdAndTitle(Long projectId, String title) {
         return lambdaQuery()
+                .eq(DeliverableEntity::getProjectId, projectId)
                 .eq(DeliverableEntity::getTitle, title)
                 .one();
     }
@@ -37,9 +38,10 @@ public class DeliverableServiceImpl extends ServiceImpl<DeliverableMapper, Deliv
     }
 
     @Override
-    public Page<DeliverableEntity> listDeliverables(Long page, Long pageSize) {
+    public Page<DeliverableEntity> listDeliverables(Long projectId, Long page, Long pageSize) {
         Page<DeliverableEntity> pageParam = new Page<>(page, pageSize);
         LambdaQueryWrapper<DeliverableEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(DeliverableEntity::getProjectId, projectId);
         queryWrapper.orderByDesc(DeliverableEntity::getId);
         return deliverableMapper.selectPage(pageParam, queryWrapper);
     }

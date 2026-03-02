@@ -15,6 +15,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ListDeliverableRequest implements Serializable {
     @NotNull
+    private Long projectId;
+    @NotNull
     private Long page;
     @NotNull
     @Max(value = 50)

@@ -40,9 +40,9 @@ public class DeliverableApiImpl implements DeliverableApi {
         Long orgId = accountInfo.getOrgId();
 
         // check the duplicate
-        DeliverableEntity deliverableEntity = deliverableService.getByTitle(req.getTitle());
+        DeliverableEntity deliverableEntity = deliverableService.getByProjectIdAndTitle(req.getProjectId(), req.getTitle());
         if (deliverableEntity != null) {
-            throw new NexxusException(ErrorDefEnum.RESOURCE_CONFLICT.desc("deliverable already exist"));
+            throw new NexxusException(ErrorDefEnum.RESOURCE_CONFLICT.desc("deliverable already exist in this project"));
         }
 
         // check the assignee
@@ -54,6 +54,7 @@ public class DeliverableApiImpl implements DeliverableApi {
 
         DeliverableEntity newDeliverable = DeliverableEntity.builder()
                 .orgId(orgId)
+                .projectId(req.getProjectId())
                 .displayId(UUID.randomUUID().toString())
                 .title(req.getTitle())
                 .shortDesc(req.getShortDesc())
@@ -91,8 +92,8 @@ public class DeliverableApiImpl implements DeliverableApi {
     }
 
     @Override
-    public PageResult<DeliverableListItem> list(Long page, Long pageSize) {
-        var entityPage = deliverableService.listDeliverables(page, pageSize);
+    public PageResult<DeliverableListItem> list(Long projectId, Long page, Long pageSize) {
+        var entityPage = deliverableService.listDeliverables(projectId, page, pageSize);
 
         List<DeliverableListItem> items = entityPage.getRecords().stream()
                 .map(deliverableConverter::toDeliverableListItem)

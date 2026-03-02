@@ -45,6 +45,6 @@ public class DeliverableController {
     @PostMapping("/list")
     public PageResult<DeliverableListItem> list(@RequestBody @Valid ListDeliverableRequest req) {
         log.info("list deliverable req: {}", req);
-        return deliverableApi.list(req.getPage(), req.getPageSize());
+        return deliverableApi.list(req.getProjectId(), req.getPage(), req.getPageSize());
     }
 }

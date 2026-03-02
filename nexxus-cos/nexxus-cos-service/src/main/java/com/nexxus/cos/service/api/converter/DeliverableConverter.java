@@ -56,6 +56,7 @@ public class DeliverableConverter {
 
         return DeliverableDto.builder()
                 .orgId(entity.getOrgId())
+                .projectId(entity.getProjectId())
                 .displayId(entity.getDisplayId())
                 .title(entity.getTitle())
                 .shortDesc(entity.getShortDesc())
@@ -84,6 +85,7 @@ public class DeliverableConverter {
 
         return DeliverableListItem.builder()
                 .orgId(entity.getOrgId())
+                .projectId(entity.getProjectId())
                 .displayId(entity.getDisplayId())
                 .title(entity.getTitle())
                 .assignee(userConverter.toUserDto(assignee))

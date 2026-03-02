@@ -13,5 +13,5 @@ public interface DeliverableApi {
 
     DeliverableDto edit(String displayId, EditDeliverableRequest req);
 
-    PageResult<DeliverableListItem> list(Long page, Long pageSize);
+    PageResult<DeliverableListItem> list(Long projectId, Long page, Long pageSize);
 }
