@@ -137,3 +137,39 @@ create table if not exists cos_task
 
 create unique index if not exists uq_task_display_id on cos_task (display_id);
 create unique index if not exists uq_task_title on cos_task (title);
+
+-- =============================================
+
+create table if not exists cos_document_folder
+(
+    id         bigserial                           not null primary key,
+    version    integer                             null,
+    name       varchar(64)                         not null,
+    created_by varchar(64)                         not null,
+    updated_by varchar(64)                         not null,
+    deleted_by varchar(64)                         null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP not null,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP not null,
+    deleted_at timestamp                           null
+);
+
+create unique index if not exists uq_doc_folder_name on cos_document_folder (name);
+
+-- =============================================
+
+create table if not exists cos_document
+(
+    id          bigserial                           not null primary key,
+    version     integer                             null,
+    folder_name varchar(64)                         not null,
+    name        varchar(64)                         not null,
+    doc_url     text                                not null,
+    created_by  varchar(64)                         not null,
+    updated_by  varchar(64)                         not null,
+    deleted_by  varchar(64)                         null,
+    created_at  timestamp DEFAULT CURRENT_TIMESTAMP not null,
+    updated_at  timestamp DEFAULT CURRENT_TIMESTAMP not null,
+    deleted_at  timestamp                           null
+);
+
+create unique index if not exists uq_doc_folder_name on cos_document (folder_name, name);
