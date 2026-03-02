@@ -1,5 +1,7 @@
 package com.nexxus.cos.service.api;
 
+import com.nexxus.common.AccountInfo;
+import com.nexxus.common.AccountInfoContext;
 import com.nexxus.common.ErrorDefEnum;
 import com.nexxus.common.NexxusException;
 import com.nexxus.common.PageResult;
@@ -33,6 +35,10 @@ public class DeliverableApiImpl implements DeliverableApi {
 
     @Override
     public DeliverableDto createDeliverable(CreateDeliverableRequest req) {
+        // get orgId from context
+        AccountInfo accountInfo = AccountInfoContext.get();
+        Long orgId = accountInfo.getOrgId();
+
         // check the duplicate
         DeliverableEntity deliverableEntity = deliverableService.getByTitle(req.getTitle());
         if (deliverableEntity != null) {
@@ -47,6 +53,7 @@ public class DeliverableApiImpl implements DeliverableApi {
         }
 
         DeliverableEntity newDeliverable = DeliverableEntity.builder()
+                .orgId(orgId)
                 .displayId(UUID.randomUUID().toString())
                 .title(req.getTitle())
                 .shortDesc(req.getShortDesc())

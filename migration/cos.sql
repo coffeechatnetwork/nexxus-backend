@@ -91,6 +91,7 @@ create table if not exists cos_deliverable
 (
     id           bigserial                                    not null primary key,
     version      integer                                      null,
+    org_id       bigint                                       not null,
     display_id   varchar(64)                                  not null,
     title        varchar(128)                                 not null,
     short_desc   varchar(64)                                  null,

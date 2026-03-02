@@ -26,6 +26,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @TableName(value = "cos_deliverable", autoResultMap = true)
 public class DeliverableEntity extends BaseEntity {
+    private Long orgId;
     private String displayId;
     private String title;
     private String shortDesc;
