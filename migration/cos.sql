@@ -121,6 +121,7 @@ create table if not exists cos_task
     id                   bigserial                                    not null primary key,
     version              integer                                      null,
     org_id               bigint                                       not null,
+    project_id           bigint                                       not null,
     display_id           varchar(64)                                  not null,
     title                varchar(128)                                 not null,
     short_desc           varchar(64)                                  null,
@@ -140,7 +141,7 @@ create table if not exists cos_task
 );
 
 create unique index if not exists uq_task_display_id on cos_task (display_id);
-create unique index if not exists uq_task_org_title on cos_task (org_id, title);
+create unique index if not exists uq_task_project_title on cos_task (project_id, title);
 
 -- =============================================
 

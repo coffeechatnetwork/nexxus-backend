@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface TaskService extends IService<TaskEntity> {
-    TaskEntity getByTitle(String title);
+    TaskEntity getByProjectIdAndTitle(Long projectId, String title);
 
     TaskEntity getByDisplayId(String displayId);
 
-    Page<TaskEntity> listTasks(Long page, Long pageSize);
+    Page<TaskEntity> listTasks(Long projectId, Long page, Long pageSize);
 
     Map<String, TaskEntity> mapByDisplayIds(List<String> displayIds);
 }

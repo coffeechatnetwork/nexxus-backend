@@ -13,5 +13,5 @@ public interface TaskApi {
 
     TaskDto edit(String displayId, EditTaskRequest req);
 
-    PageResult<TaskListItem> listTasks(Long page, Long pageSize);
+    PageResult<TaskListItem> listTasks(Long projectId, Long page, Long pageSize);
 }

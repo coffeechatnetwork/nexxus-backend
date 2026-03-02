@@ -19,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 public class TaskDto implements Serializable {
     private Long orgId;
+    private Long projectId;
     private String displayId;
     private String title;
     private String shortDesc;

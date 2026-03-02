@@ -2,6 +2,7 @@ package com.nexxus.cos.api.dto.comment;
 
 import com.nexxus.common.enums.cos.comment.EntityType;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class ListCommentRequest implements Serializable {
     @NotNull
     private EntityType entityType;
     @NotNull
+    @Min(value = 1)
     private Long page;
     @NotNull
     @Max(value = 50)

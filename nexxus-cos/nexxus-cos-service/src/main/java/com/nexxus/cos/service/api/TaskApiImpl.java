@@ -40,9 +40,9 @@ public class TaskApiImpl implements TaskApi {
         AccountInfo accountInfo = AccountInfoContext.get();
         Long orgId = accountInfo.getOrgId();
 
-        TaskEntity taskEntity = taskService.getByTitle(req.getTitle());
+        TaskEntity taskEntity = taskService.getByProjectIdAndTitle(req.getProjectId(), req.getTitle());
         if (taskEntity != null) {
-            throw new NexxusException(ErrorDefEnum.RESOURCE_CONFLICT.desc("task already exist"));
+            throw new NexxusException(ErrorDefEnum.RESOURCE_CONFLICT.desc("task already exist in this project"));
         }
 
         UUID assigneeId = req.getAssignee();
@@ -53,6 +53,7 @@ public class TaskApiImpl implements TaskApi {
 
         TaskEntity newTask = TaskEntity.builder()
                 .orgId(orgId)
+                .projectId(req.getProjectId())
                 .displayId(UUID.randomUUID().toString())
                 .title(req.getTitle())
                 .shortDesc(req.getShortDesc())
@@ -91,8 +92,8 @@ public class TaskApiImpl implements TaskApi {
     }
 
     @Override
-    public PageResult<TaskListItem> listTasks(Long page, Long pageSize) {
-        Page<TaskEntity> taskEntityPage = taskService.listTasks(page, pageSize);
+    public PageResult<TaskListItem> listTasks(Long projectId, Long page, Long pageSize) {
+        Page<TaskEntity> taskEntityPage = taskService.listTasks(projectId, page, pageSize);
         List<TaskListItem> items = taskEntityPage.getRecords().stream()
                 .map(taskConverter::toTaskListItem)
                 .collect(Collectors.toList());

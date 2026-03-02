@@ -23,8 +23,11 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, TaskEntity> impleme
     private final TaskMapper taskMapper;
 
     @Override
-    public TaskEntity getByTitle(String title) {
-        return lambdaQuery().eq(TaskEntity::getTitle, title).one();
+    public TaskEntity getByProjectIdAndTitle(Long projectId, String title) {
+        return lambdaQuery()
+                .eq(TaskEntity::getProjectId, projectId)
+                .eq(TaskEntity::getTitle, title)
+                .one();
     }
 
     @Override
@@ -33,9 +36,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, TaskEntity> impleme
     }
 
     @Override
-    public Page<TaskEntity> listTasks(Long page, Long pageSize) {
+    public Page<TaskEntity> listTasks(Long projectId, Long page, Long pageSize) {
         Page<TaskEntity> pageParam = new Page<>(page, pageSize);
         LambdaQueryWrapper<TaskEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(TaskEntity::getProjectId, projectId);
         queryWrapper.orderByDesc(TaskEntity::getId);
         return taskMapper.selectPage(pageParam, queryWrapper);
     }

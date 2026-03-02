@@ -16,6 +16,7 @@ import java.time.Instant;
 @NoArgsConstructor
 public class TaskListItem implements Serializable {
     private Long orgId;
+    private Long projectId;
     private String displayId;
     private String title;
     private UserDto assignee;

@@ -55,6 +55,7 @@ public class TaskConverter {
 
         return TaskDto.builder()
                 .orgId(entity.getOrgId())
+                .projectId(entity.getProjectId())
                 .displayId(entity.getDisplayId())
                 .title(entity.getTitle())
                 .shortDesc(entity.getShortDesc())
@@ -82,6 +83,7 @@ public class TaskConverter {
         }
         return TaskListItem.builder()
                 .orgId(entity.getOrgId())
+                .projectId(entity.getProjectId())
                 .displayId(entity.getDisplayId())
                 .title(entity.getTitle())
                 .assignee(userConverter.toUserDto(assignee))

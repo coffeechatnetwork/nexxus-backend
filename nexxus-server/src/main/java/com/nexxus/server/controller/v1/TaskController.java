@@ -44,6 +44,6 @@ public class TaskController {
 
     @PostMapping("/list")
     public PageResult<TaskListItem> list(@RequestBody @Valid ListTaskRequest req) {
-        return taskApi.listTasks(req.getPage(), req.getPageSize());
+        return taskApi.listTasks(req.getProjectId(), req.getPage(), req.getPageSize());
     }
 }
