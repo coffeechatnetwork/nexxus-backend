@@ -24,11 +24,18 @@ public class MybatisPlusConfig {
             @Override
             public Expression getTenantId() {
                 AccountInfo accountInfo = AccountInfoContext.get();
+                if (accountInfo == null) {
+                    return new StringValue("1");
+                }
                 return new StringValue(String.valueOf(accountInfo.getOrgId()));
             }
 
             @Override
             public String getTenantIdColumn() {
+                AccountInfo accountInfo = AccountInfoContext.get();
+                if (accountInfo == null) {
+                    return "1";
+                }
                 return "org_id";
             }
 

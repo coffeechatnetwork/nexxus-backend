@@ -12,4 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class DocumentFolderServiceImpl extends ServiceImpl<DocumentFolderMapper, DocumentFolderEntity> implements DocumentFolderService {
+    @Override
+    public DocumentFolderEntity getByProjectIdAndName(Long projectId, String name) {
+        return lambdaQuery()
+                .eq(DocumentFolderEntity::getProjectId, projectId)
+                .eq(DocumentFolderEntity::getName, name)
+                .one();
+    }
 }

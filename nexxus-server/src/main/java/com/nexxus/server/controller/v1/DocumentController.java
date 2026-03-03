@@ -1,5 +1,6 @@
 package com.nexxus.server.controller.v1;
 
+import com.nexxus.cos.api.DocumentApi;
 import com.nexxus.cos.api.dto.document.CreateFolderRequest;
 import com.nexxus.cos.api.dto.document.DeleteFileRequest;
 import com.nexxus.cos.api.dto.document.DeleteFolderRequest;
@@ -29,9 +30,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DocumentController {
 
+    private final DocumentApi documentApi;
+
     @PostMapping("/folders")
     public FolderDto createFolder(@RequestBody @Valid CreateFolderRequest req) {
-        return null;
+        log.info("create folder req: {}", req);
+        return documentApi.createFolder(req);
     }
 
     @PostMapping("/folders/list")
