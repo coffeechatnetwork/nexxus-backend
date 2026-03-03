@@ -195,7 +195,7 @@ create table if not exists cos_key_date
     title          varchar(128)                                 not null,
     short_desc     varchar(64)                                  null,
     long_desc      text                                         null,
-    category       varchar(128)                                 not null,
+    category       varchar(32)                                  not null,
     reference_date timestamp                                    null,
     attachments    jsonb     default JSON_ARRAY(RETURNING json) not null,
     created_by     varchar(64)                                  not null,
@@ -208,3 +208,28 @@ create table if not exists cos_key_date
 
 create unique index if not exists uq_key_date_display_id on cos_key_date (display_id);
 create unique index if not exists uq_key_date_project_title on cos_key_date (project_id, title);
+
+-- =============================================
+
+create table if not exists cos_dev_checklist
+(
+    id          bigserial                                    not null primary key,
+    version     integer                                      null,
+    org_id      bigint                                       not null,
+    project_id  bigint                                       not null,
+    display_id  varchar(64)                                  not null,
+    name        varchar(64)                                  not null,
+    category    varchar(32)                                  not null,
+    status      varchar(32)                                  not null,
+    waitingOn   varchar(128)                                 null,
+    attachments jsonb     default JSON_ARRAY(RETURNING json) not null,
+    created_by  varchar(64)                                  not null,
+    updated_by  varchar(64)                                  not null,
+    deleted_by  varchar(64)                                  null,
+    created_at  timestamp DEFAULT CURRENT_TIMESTAMP          not null,
+    updated_at  timestamp DEFAULT CURRENT_TIMESTAMP          not null,
+    deleted_at  timestamp                                    null
+);
+
+create unique index if not exists uq_dev_checklist_display_id on cos_dev_checklist (display_id);
+create unique index if not exists uq_dev_checklist_project_name on cos_dev_checklist (project_id, name);
