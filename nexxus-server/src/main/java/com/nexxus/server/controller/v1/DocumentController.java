@@ -1,17 +1,26 @@
 package com.nexxus.server.controller.v1;
 
-import com.nexxus.cos.api.dto.document.CreateDocumentFolderRequest;
-import com.nexxus.cos.api.dto.document.DocumentFolderDto;
-import com.nexxus.cos.api.dto.document.DocumentFolderListItem;
-import com.nexxus.cos.api.dto.document.ListDocumentFolderRequest;
+import com.nexxus.cos.api.dto.document.CreateFolderRequest;
+import com.nexxus.cos.api.dto.document.DeleteFileRequest;
+import com.nexxus.cos.api.dto.document.DeleteFolderRequest;
+import com.nexxus.cos.api.dto.document.FileDto;
+import com.nexxus.cos.api.dto.document.FolderDto;
+import com.nexxus.cos.api.dto.document.FolderListItem;
+import com.nexxus.cos.api.dto.document.ListFolderRequest;
+import com.nexxus.cos.api.dto.document.RenameFileRequest;
+import com.nexxus.cos.api.dto.document.RenameFolderRequest;
+import com.nexxus.cos.api.dto.document.UploadToFolderResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -21,12 +30,38 @@ import java.util.List;
 public class DocumentController {
 
     @PostMapping("/folders")
-    public DocumentFolderDto createFolder(@RequestBody @Valid CreateDocumentFolderRequest req) {
+    public FolderDto createFolder(@RequestBody @Valid CreateFolderRequest req) {
         return null;
     }
 
     @PostMapping("/folders/list")
-    public List<DocumentFolderListItem> listFolders(@RequestBody @Valid ListDocumentFolderRequest req) {
+    public List<FolderListItem> listFolders(@RequestBody @Valid ListFolderRequest req) {
+        return null;
+    }
+
+    @PostMapping(value = "/folders/upload", consumes = "multipart/form-data")
+    public UploadToFolderResponse uploadToFolder(@RequestParam("file") MultipartFile file,
+                                                 @RequestParam(value = "folderName") String folderName) throws IOException {
+        return null;
+    }
+
+    @PostMapping("/folders/rename")
+    public FolderDto renameFolder(@RequestBody @Valid RenameFolderRequest req) {
+        return null;
+    }
+
+    @PostMapping("/folders/delete")
+    public Boolean deleteFolder(@RequestBody @Valid DeleteFolderRequest req) {
+        return null;
+    }
+
+    @PostMapping("/files/rename")
+    public FileDto renameFile(@RequestBody @Valid RenameFileRequest req) {
+        return null;
+    }
+
+    @PostMapping("/files/delete")
+    public Boolean deleteFile(@RequestBody @Valid DeleteFileRequest req) {
         return null;
     }
 }

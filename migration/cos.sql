@@ -150,6 +150,7 @@ create table if not exists cos_document_folder
     id         bigserial                           not null primary key,
     version    integer                             null,
     org_id     bigint                              not null,
+    project_id bigint                              not null,
     name       varchar(64)                         not null,
     created_by varchar(64)                         not null,
     updated_by varchar(64)                         not null,
@@ -159,7 +160,7 @@ create table if not exists cos_document_folder
     deleted_at timestamp                           null
 );
 
-create unique index if not exists uq_doc_folder_org_name on cos_document_folder (org_id, name);
+create unique index if not exists uq_doc_folder_project_name on cos_document_folder (project_id, name);
 
 -- =============================================
 
@@ -168,6 +169,7 @@ create table if not exists cos_document_file
     id          bigserial                           not null primary key,
     version     integer                             null,
     org_id      bigint                              not null,
+    project_id  bigint                              not null,
     folder_name varchar(64)                         not null,
     name        varchar(64)                         not null,
     doc_url     text                                not null,
@@ -179,5 +181,4 @@ create table if not exists cos_document_file
     deleted_at  timestamp                           null
 );
 
-create unique index if not exists uq_doc_file_org_folder on cos_document_file (org_id, folder_name);
-create unique index if not exists uq_doc_file_org_folder_name on cos_document_file (org_id, folder_name, name);
+create unique index if not exists uq_doc_file_project_folder_name on cos_document_file (project_id, folder_name, name);

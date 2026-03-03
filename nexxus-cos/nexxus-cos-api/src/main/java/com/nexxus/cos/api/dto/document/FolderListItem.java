@@ -11,6 +11,8 @@ import java.io.Serializable;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateDocumentFolderRequest implements Serializable {
+public class FolderListItem implements Serializable {
+    private Long projectId;
     private String name;
+    private Long fileCount;
 }

@@ -16,5 +16,6 @@ import lombok.experimental.SuperBuilder;
 @TableName("cos_document_folder")
 public class DocumentFolderEntity extends BaseEntity {
     private Long orgId;
+    private Long projectId;
     private String name;
 }

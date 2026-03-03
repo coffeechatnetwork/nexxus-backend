@@ -11,7 +11,8 @@ import java.io.Serializable;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DocumentFolderDto implements Serializable {
+public class FolderDto implements Serializable {
+    private Long projectId;
     private String name;
     private Long fileCount;
 }
