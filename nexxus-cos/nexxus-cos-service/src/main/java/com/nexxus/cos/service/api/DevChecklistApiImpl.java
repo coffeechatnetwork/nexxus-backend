@@ -8,6 +8,7 @@ import com.nexxus.cos.api.dto.checklist.DevChecklistDto;
 import com.nexxus.cos.api.dto.checklist.DevChecklistListItem;
 import com.nexxus.cos.api.dto.checklist.DevChecklistSummaryDto;
 import com.nexxus.cos.api.dto.checklist.DevChecklistSummaryRequest;
+import com.nexxus.cos.api.dto.checklist.EditDevChecklistRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,11 @@ public class DevChecklistApiImpl implements DevChecklistApi {
 
     @Override
     public DevChecklistDto getByDisplayId(String displayId) {
+        return null;
+    }
+
+    @Override
+    public DevChecklistDto edit(String displayId, EditDevChecklistRequest req) {
         return null;
     }
 
