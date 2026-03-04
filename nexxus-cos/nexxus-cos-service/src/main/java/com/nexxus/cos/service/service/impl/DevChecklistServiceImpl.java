@@ -20,4 +20,11 @@ public class DevChecklistServiceImpl extends ServiceImpl<DevChecklistMapper, Dev
                 .eq(DevChecklistEntity::getTitle, title);
         return getOne(wrapper);
     }
+
+    @Override
+    public DevChecklistEntity getByDisplayId(String displayId) {
+        LambdaQueryWrapper<DevChecklistEntity> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(DevChecklistEntity::getDisplayId, displayId);
+        return getOne(wrapper);
+    }
 }

@@ -56,7 +56,11 @@ public class DevChecklistApiImpl implements DevChecklistApi {
 
     @Override
     public DevChecklistDto getByDisplayId(String displayId) {
-        return null;
+        DevChecklistEntity devChecklist = devChecklistService.getByDisplayId(displayId);
+        if (devChecklist == null) {
+            throw new NexxusException(ErrorDefEnum.NOT_FOUND_EXCEPTION.desc("devChecklist not found"));
+        }
+        return devChecklistConverter.toDevChecklistDto(devChecklist);
     }
 
     @Override
