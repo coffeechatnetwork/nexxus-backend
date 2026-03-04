@@ -222,7 +222,7 @@ create table if not exists cos_dev_checklist
     description text                                         null,
     category    varchar(32)                                  not null,
     status      varchar(32)                                  not null,
-    waitingOn   varchar(128)                                 null,
+    waiting_on  varchar(128)                                 null,
     attachments jsonb     default JSON_ARRAY(RETURNING json) not null,
     created_by  varchar(64)                                  not null,
     updated_by  varchar(64)                                  not null,

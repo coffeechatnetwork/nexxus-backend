@@ -1,7 +1,12 @@
 package com.nexxus.cos.service.api;
 
+import com.nexxus.common.AccountInfo;
+import com.nexxus.common.AccountInfoContext;
+import com.nexxus.common.ErrorDefEnum;
+import com.nexxus.common.NexxusException;
 import com.nexxus.common.PageResult;
 import com.nexxus.common.enums.cos.checklist.DevChecklistCategory;
+import com.nexxus.common.enums.cos.checklist.DevChecklistStatus;
 import com.nexxus.cos.api.DevChecklistApi;
 import com.nexxus.cos.api.dto.checklist.CreateDevChecklistRequest;
 import com.nexxus.cos.api.dto.checklist.DevChecklistDto;
@@ -9,17 +14,44 @@ import com.nexxus.cos.api.dto.checklist.DevChecklistListItem;
 import com.nexxus.cos.api.dto.checklist.DevChecklistSummaryDto;
 import com.nexxus.cos.api.dto.checklist.DevChecklistSummaryRequest;
 import com.nexxus.cos.api.dto.checklist.EditDevChecklistRequest;
+import com.nexxus.cos.service.api.converter.DevChecklistConverter;
+import com.nexxus.cos.service.entity.DevChecklistEntity;
+import com.nexxus.cos.service.service.DevChecklistService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class DevChecklistApiImpl implements DevChecklistApi {
+
+    private final DevChecklistService devChecklistService;
+    private final DevChecklistConverter devChecklistConverter;
+
     @Override
     public DevChecklistDto createDevChecklist(CreateDevChecklistRequest req) {
-        return null;
+        AccountInfo accountInfo = AccountInfoContext.get();
+        Long orgId = accountInfo.getOrgId();
+
+        DevChecklistEntity devChecklistEntity = devChecklistService.getByProjectIdAndTitle(req.getProjectId(), req.getTitle());
+        if (devChecklistEntity != null) {
+            throw new NexxusException(ErrorDefEnum.RESOURCE_CONFLICT.desc("checklist with this title already exist"));
+        }
+        DevChecklistEntity newEntity = DevChecklistEntity.builder()
+                .orgId(orgId)
+                .projectId(req.getProjectId())
+                .displayId(UUID.randomUUID().toString())
+                .title(req.getTitle())
+                .description(req.getDescription())
+                .category(req.getCategory())
+                .status(DevChecklistStatus.IN_PROGRESS)
+                .attachments(req.getAttachments())
+                .build();
+        devChecklistService.save(newEntity);
+        return devChecklistConverter.toDevChecklistDto(newEntity);
     }
 
     @Override

@@ -2,6 +2,9 @@ package com.nexxus.cos.api.dto.checklist;
 
 import com.nexxus.common.enums.cos.checklist.DevChecklistCategory;
 import com.nexxus.common.vo.Attachment;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,9 +18,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateDevChecklistRequest implements Serializable {
+    @NotNull
     private Long projectId;
+    @NotBlank
+    @Size(max = 64)
     private String title;
     private String description;
+    @NotNull
     private DevChecklistCategory category;
     private List<Attachment> attachments;
 }
