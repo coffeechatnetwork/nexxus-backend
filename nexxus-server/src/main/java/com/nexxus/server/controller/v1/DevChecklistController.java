@@ -5,6 +5,8 @@ import com.nexxus.cos.api.DevChecklistApi;
 import com.nexxus.cos.api.dto.checklist.CreateDevChecklistRequest;
 import com.nexxus.cos.api.dto.checklist.DevChecklistDto;
 import com.nexxus.cos.api.dto.checklist.DevChecklistListItem;
+import com.nexxus.cos.api.dto.checklist.DevChecklistSummaryDto;
+import com.nexxus.cos.api.dto.checklist.DevChecklistSummaryRequest;
 import com.nexxus.cos.api.dto.checklist.EditDevChecklistRequest;
 import com.nexxus.cos.api.dto.checklist.ListDevChecklistRequest;
 import jakarta.validation.Valid;
@@ -45,5 +47,10 @@ public class DevChecklistController {
     @PostMapping("/list")
     public PageResult<DevChecklistListItem> list(@RequestBody @Valid ListDevChecklistRequest req) {
         return devChecklistApi.listDevChecklists(req.getProjectId(), req.getPage(), req.getPageSize(), req.getCategory());
+    }
+
+    @PostMapping("/summary")
+    public DevChecklistSummaryDto summary(@RequestBody @Valid DevChecklistSummaryRequest req) {
+        return devChecklistApi.summary(req);
     }
 }

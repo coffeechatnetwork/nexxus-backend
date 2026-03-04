@@ -4,12 +4,18 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nexxus.common.enums.cos.checklist.DevChecklistCategory;
+import com.nexxus.common.enums.cos.checklist.DevChecklistStatus;
+import com.nexxus.cos.api.dto.checklist.DevChecklistSummaryDto;
 import com.nexxus.cos.service.entity.DevChecklistEntity;
 import com.nexxus.cos.service.mapper.DevChecklistMapper;
 import com.nexxus.cos.service.service.DevChecklistService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -39,5 +45,32 @@ public class DevChecklistServiceImpl extends ServiceImpl<DevChecklistMapper, Dev
         }
         wrapper.orderByAsc(DevChecklistEntity::getTitle);
         return page(new Page<>(page, pageSize), wrapper);
+    }
+
+    @Override
+    public List<DevChecklistSummaryDto.CategorySummaryItem> summary(Long projectId) {
+        LambdaQueryWrapper<DevChecklistEntity> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(DevChecklistEntity::getProjectId, projectId);
+        wrapper.isNotNull(DevChecklistEntity::getCategory);
+        List<DevChecklistEntity> allChecklists = list(wrapper);
+
+        return allChecklists.stream()
+                .collect(Collectors.groupingBy(DevChecklistEntity::getCategory))
+                .entrySet().stream()
+                .map(entry -> {
+                    Map<DevChecklistStatus, Integer> statusCount = entry.getValue().stream()
+                            .collect(Collectors.groupingBy(
+                                    DevChecklistEntity::getStatus,
+                                    Collectors.collectingAndThen(Collectors.counting(), Long::intValue)
+                            ));
+                    for (DevChecklistStatus status : DevChecklistStatus.values()) {
+                        statusCount.putIfAbsent(status, 0);
+                    }
+                    return DevChecklistSummaryDto.CategorySummaryItem.builder()
+                            .category(entry.getKey())
+                            .statusCount(statusCount)
+                            .build();
+                })
+                .collect(Collectors.toList());
     }
 }

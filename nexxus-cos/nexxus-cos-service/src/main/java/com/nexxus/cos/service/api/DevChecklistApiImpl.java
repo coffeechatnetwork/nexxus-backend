@@ -93,6 +93,9 @@ public class DevChecklistApiImpl implements DevChecklistApi {
 
     @Override
     public DevChecklistSummaryDto summary(DevChecklistSummaryRequest req) {
-        return null;
+        var categories = devChecklistService.summary(req.getProjectId());
+        return DevChecklistSummaryDto.builder()
+                .categories(categories)
+                .build();
     }
 }
