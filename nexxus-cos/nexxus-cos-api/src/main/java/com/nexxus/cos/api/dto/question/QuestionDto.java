@@ -27,4 +27,5 @@ public class QuestionDto implements Serializable {
     private QuestionStatus status;
     private List<UserDto> assignees;
     private List<Attachment> attachments;
+    private List<ResponseDto> responses;
 }
