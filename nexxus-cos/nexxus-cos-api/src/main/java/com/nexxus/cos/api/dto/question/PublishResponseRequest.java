@@ -1,5 +1,6 @@
 package com.nexxus.cos.api.dto.question;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,5 +13,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PublishResponseRequest implements Serializable {
+    @NotNull
     private Long responseId;
 }

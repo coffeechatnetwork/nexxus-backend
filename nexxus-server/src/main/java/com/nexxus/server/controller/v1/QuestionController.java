@@ -5,6 +5,7 @@ import com.nexxus.cos.api.QuestionApi;
 import com.nexxus.cos.api.dto.question.CreateQuestionRequest;
 import com.nexxus.cos.api.dto.question.CreateResponseRequest;
 import com.nexxus.cos.api.dto.question.EditQuestionRequest;
+import com.nexxus.cos.api.dto.question.EditResponseRequest;
 import com.nexxus.cos.api.dto.question.ListQuestionRequest;
 import com.nexxus.cos.api.dto.question.PublishResponseRequest;
 import com.nexxus.cos.api.dto.question.QuestionDto;
@@ -54,8 +55,8 @@ public class QuestionController {
     }
 
     @PostMapping("/responses/edit")
-    public ResponseDto editResponse(@RequestBody @Valid CreateResponseRequest req) {
-        return questionApi.createResponse(req);
+    public ResponseDto editResponse(@RequestBody @Valid EditResponseRequest req) {
+        return questionApi.editResponse(req);
     }
 
     @PostMapping("/responses/publish")
