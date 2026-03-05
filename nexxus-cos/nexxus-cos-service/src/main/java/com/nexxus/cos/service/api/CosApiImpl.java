@@ -72,7 +72,7 @@ public class CosApiImpl implements CosApi {
 
         List<ProjectListItem> dtoList = entityPage.getRecords().stream()
                 .parallel()
-                .map(projectConverter::toProjectListItem`)
+                .map(projectConverter::toProjectListItem)
                 .collect(Collectors.toList());
 
         return PageResult.<ProjectListItem>builder()
