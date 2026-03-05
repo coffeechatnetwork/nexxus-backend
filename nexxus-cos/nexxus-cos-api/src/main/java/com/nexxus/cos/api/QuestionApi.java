@@ -14,7 +14,7 @@ public interface QuestionApi {
 
     QuestionDto getByDisplayId(String displayId);
 
-    QuestionDto edit(EditQuestionRequest req);
+    QuestionDto edit(String displayId, EditQuestionRequest req);
 
     PageResult<QuestionListItem> listQuestions(Long projectId, Long page, Long pageSize, String searchQuery);
 

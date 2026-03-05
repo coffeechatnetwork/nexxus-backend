@@ -32,7 +32,7 @@ public class QuestionApiImpl implements QuestionApi {
     }
 
     @Override
-    public QuestionDto edit(EditQuestionRequest req) {
+    public QuestionDto edit(String displayId, EditQuestionRequest req) {
         return null;
     }
 
