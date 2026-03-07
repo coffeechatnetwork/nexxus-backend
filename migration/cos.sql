@@ -166,19 +166,19 @@ create unique index if not exists uq_doc_folder_project_name on cos_document_fol
 
 create table if not exists cos_document_file
 (
-    id          bigserial                           not null primary key,
-    version     integer                             null,
-    org_id      bigint                              not null,
-    project_id  bigint                              not null,
-    folder_id   bigint                              not null,
-    name        varchar(64)                         not null,
-    doc_url     text                                not null,
-    created_by  varchar(64)                         not null,
-    updated_by  varchar(64)                         not null,
-    deleted_by  varchar(64)                         null,
-    created_at  timestamp DEFAULT CURRENT_TIMESTAMP not null,
-    updated_at  timestamp DEFAULT CURRENT_TIMESTAMP not null,
-    deleted_at  timestamp                           null
+    id         bigserial                           not null primary key,
+    version    integer                             null,
+    org_id     bigint                              not null,
+    project_id bigint                              not null,
+    folder_id  bigint                              not null,
+    name       varchar(64)                         not null,
+    doc_url    text                                not null,
+    created_by varchar(64)                         not null,
+    updated_by varchar(64)                         not null,
+    deleted_by varchar(64)                         null,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP not null,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP not null,
+    deleted_at timestamp                           null
 );
 
 create unique index if not exists uq_doc_file_project_folder_id on cos_document_file (project_id, folder_id, name) where deleted_at is null;
@@ -281,3 +281,28 @@ create table if not exists cos_question_resp
 );
 
 create index if not exists idx_question_resp_question_id on cos_question_resp (question_id);
+
+-- =============================================
+
+create table if not exists cos_risk_log
+(
+    id                 bigserial                           not null primary key,
+    version            integer                             null,
+    org_id             bigint                              not null,
+    project_id         bigint                              not null,
+    topic              varchar(64)                         not null,
+    description        text                                null,
+    risk               text                                null,
+    mitigation_of_risk text                                null,
+    category           varchar(32)                         not null,
+    level              varchar(32)                         not null,
+    created_by         varchar(64)                         not null,
+    updated_by         varchar(64)                         not null,
+    deleted_by         varchar(64)                         null,
+    created_at         timestamp DEFAULT CURRENT_TIMESTAMP not null,
+    updated_at         timestamp DEFAULT CURRENT_TIMESTAMP not null,
+    deleted_at         timestamp                           null
+);
+
+
+create index if not exists idx_risk_log_project_category_topic on cos_risk_log (project_id, category, topic);
